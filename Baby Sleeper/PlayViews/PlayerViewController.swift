@@ -10,8 +10,10 @@ import AVFAudio
 
 class PlayerViewController: UIViewController ,AVAudioPlayerDelegate  {
     var player : AVAudioPlayer?
-    var playList = [BabyAudio(musicName: "A", musicImage: "A", musicVolume: 0.1, isPremium: true, isSelected: false),BabyAudio(musicName: "B", musicImage: "B", musicVolume: 1, isPremium: true, isSelected: false)]
- 
+    var currentPlayList  : [BabyAudio] = []
+    var allSounds = Utils.allSounds
+    var allMusics = Utils.allMusics
+    var vcType : String?
     
 
     
@@ -28,7 +30,7 @@ class PlayerViewController: UIViewController ,AVAudioPlayerDelegate  {
         super.viewDidLoad()
         playerCollection.dataSource = self
         playerCollection.delegate = self 
-//        playMusic(name: "White Noise", type: "MP3")
+        playMusic(name: "Dream", type: "mp3")
         setupUi()
     }
     func setupUi(){
@@ -52,17 +54,20 @@ class PlayerViewController: UIViewController ,AVAudioPlayerDelegate  {
     }
     @objc func timerTapped (){
         timer.zoomIn()
+        let destinationVC = storyboard?.instantiateViewController(withIdentifier: "TimerViewController") as! TimerViewController
+        destinationVC.modalPresentationStyle = .fullScreen
+        self.present(destinationVC, animated: true, completion: nil)
        
     }
     @objc func playImageTapped (){
         playImage.zoomIn()
-        
+        print(currentPlayList.count)
         if isPlay == false{
             playImage.image = UIImage(named: "pause")
-            GSAudio.sharedInstance.playSounds(soundFiles: playList)
+            GSAudio.sharedInstance.playSounds(soundFiles: currentPlayList)
             isPlay = true
         }else{
-            GSAudio.sharedInstance.stopSounds(soundFiles: playList)
+            GSAudio.sharedInstance.stopSounds(soundFiles: currentPlayList)
             playImage.image = UIImage(named: "play")
             isPlay = false
         }
@@ -74,7 +79,7 @@ class PlayerViewController: UIViewController ,AVAudioPlayerDelegate  {
         mixImage.zoomIn()
         let destinationVC = storyboard?.instantiateViewController(withIdentifier: "MixViewController") as! MixViewController
         destinationVC.modalPresentationStyle = .pageSheet
-        destinationVC.playlist = playList
+        destinationVC.playlist = currentPlayList
         self.present(destinationVC, animated: true, completion: nil)
 
     }
@@ -145,14 +150,52 @@ extension PlayerViewController :  UICollectionViewDelegate, UICollectionViewData
     
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
-        return 5
+        if vcType == "sound"{
+            return Utils.allSounds.count
+
+        }else{
+            return Utils.allMusics.count
+
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = playerCollection.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! PlayerCollectionViewCell
+        if vcType == "sound"{
+            cell.layer.cornerRadius = 20
+            cell.imageView.image = UIImage(named: allSounds[indexPath.row].musicImage)
+            cell.labelMusic.text = allSounds[indexPath.row].musicName
+            if allSounds[indexPath.row].isPremium == true{
+                cell.lockImage.isHidden = false
+
+            }else{
+                cell.lockImage.isHidden = true
+            }
+            if allSounds[indexPath.row].isSelected == true{
+                cell.backgroundColor = UIColor(red: 140/255, green: 1, blue: 227/255, alpha: 100)
+            }else{
+                cell.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 75)
+            }
+        }else{
+            cell.layer.cornerRadius = 20
+            cell.imageView.image = UIImage(named: allMusics[indexPath.row].musicImage)
+            cell.labelMusic.text = allMusics[indexPath.row].musicName
+            if allMusics[indexPath.row].isPremium == true{
+                cell.lockImage.isHidden = false
+
+            }else{
+                cell.lockImage.isHidden = true
+            }
+            if allMusics[indexPath.row].isSelected == true{
+                cell.backgroundColor = UIColor(red: 140/255, green: 1, blue: 227/255, alpha: 100)
+            }else{
+                cell.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 75)
+            }
+        }
+       
+       
+       
         
-        cell.layer.cornerRadius = 20
 //        cell.layer.masksToBounds = false
 //        cell.layer.shadowColor = UIColor(red: 0.762, green: 0.893, blue: 1, alpha: 0.51).cgColor
 //        cell.layer.shadowOffset = CGSize(width: -3, height: 4)
@@ -164,20 +207,41 @@ extension PlayerViewController :  UICollectionViewDelegate, UICollectionViewData
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if vcType == "sound"{
+            if allSounds[indexPath.row].isPremium == true{
+                
+            }else{
+            if allSounds[indexPath.row].isSelected == false{
+                allSounds[indexPath.row].isSelected = true
+                currentPlayList.append(allSounds[indexPath.row])
+
+                
+            }else{
+                allSounds[indexPath.row].isSelected = false
+                currentPlayList = currentPlayList.filter({ $0.musicName == allSounds[indexPath.row].musicName})
+            }
+            }
+        }else{
+            if allMusics[indexPath.row].isPremium == true{
+                
+            }else{
+            if allMusics[indexPath.row].isSelected == false{
+                allMusics[indexPath.row].isSelected = true
+                currentPlayList.append(allMusics[indexPath.row])
+
+                
+            }else{
+                allMusics[indexPath.row].isSelected = false
+                currentPlayList = currentPlayList.filter({ $0.musicName == allMusics[indexPath.row].musicName})
+            }
+            }
+        }
         
-//            let destinationVC = storyboard?.instantiateViewController(withIdentifier: "DetailVC") as! DetailViewController
-//
-//
-//            destinationVC.delegate = self
-//            destinationVC.cellIds = cellIds
-//            destinationVC.selectedItem = cellIds[indexPath.row]
-//            print(indexPath.row)
-//            destinationVC.selectedItemNumber = indexPath.row
-//            destinationVC.modalPresentationStyle = .fullScreen
-//            destinationVC.firstScrollİndex = indexPath.row
-//            self.present(destinationVC, animated: true, completion: nil)
         
         
+        
+        print(currentPlayList.count)
+        collectionView.reloadData()
     }
     
     
@@ -208,7 +272,7 @@ extension PlayerViewController :  UICollectionViewDelegate, UICollectionViewData
         
         if UIDevice.current.userInterfaceIdiom == .pad  {
             
-            let numberOfVisibleCellHorizontal: CGFloat = 3
+            let numberOfVisibleCellHorizontal: CGFloat = 5
             let horizontalOtherValues = insets.right + insets.left + (spacing.width * numberOfVisibleCellHorizontal)
             let width = (collectionView.bounds.width - horizontalOtherValues) / numberOfVisibleCellHorizontal
             

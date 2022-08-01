@@ -21,12 +21,11 @@
 		B7060B5628945DFC00FF042D /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7060B5528945DFB00FF042D /* Extension.swift */; };
 		B7060B5928946EB800FF042D /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7060B5828946EB800FF042D /* PlayerViewController.swift */; };
 		B7060B5B28946EEE00FF042D /* PlayerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7060B5A28946EEE00FF042D /* PlayerCollectionViewCell.swift */; };
-		B765A90E2895264F0009BC1C /* Cera Pro Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B765A90C2895264E0009BC1C /* Cera Pro Medium.ttf */; };
-		B765A90F2895264F0009BC1C /* Cera Pro Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B765A90D2895264E0009BC1C /* Cera Pro Bold.ttf */; };
+		B754479A289700F7009488E4 /* Music in Resources */ = {isa = PBXBuildFile; fileRef = B7544799289700F7009488E4 /* Music */; };
+		B754479C28970128009488E4 /* Sounds in Resources */ = {isa = PBXBuildFile; fileRef = B754479B28970128009488E4 /* Sounds */; };
+		B75447A2289724DF009488E4 /* CeraPro-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = B754479F289723CF009488E4 /* CeraPro-Medium.otf */; };
+		B75447A5289725D0009488E4 /* TimerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B75447A4289725D0009488E4 /* TimerViewController.swift */; };
 		B765A911289530C60009BC1C /* White Noise.MP3 in Resources */ = {isa = PBXBuildFile; fileRef = B765A910289530C60009BC1C /* White Noise.MP3 */; };
-		B765A91528953C340009BC1C /* A.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B765A91228953C340009BC1C /* A.mp3 */; };
-		B765A91628953C340009BC1C /* B.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B765A91328953C340009BC1C /* B.mp3 */; };
-		B765A91728953C340009BC1C /* C.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B765A91428953C340009BC1C /* C.mp3 */; };
 		B765A91928955B6A0009BC1C /* MixViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B765A91828955B6A0009BC1C /* MixViewController.swift */; };
 		B765A91C28955BA40009BC1C /* MixesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B765A91B28955BA40009BC1C /* MixesTableViewCell.swift */; };
 /* End PBXBuildFile section */
@@ -67,12 +66,11 @@
 		B7060B5528945DFB00FF042D /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		B7060B5828946EB800FF042D /* PlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewController.swift; sourceTree = "<group>"; };
 		B7060B5A28946EEE00FF042D /* PlayerCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerCollectionViewCell.swift; sourceTree = "<group>"; };
-		B765A90C2895264E0009BC1C /* Cera Pro Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Cera Pro Medium.ttf"; sourceTree = "<group>"; };
-		B765A90D2895264E0009BC1C /* Cera Pro Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Cera Pro Bold.ttf"; sourceTree = "<group>"; };
+		B7544799289700F7009488E4 /* Music */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Music; sourceTree = "<group>"; };
+		B754479B28970128009488E4 /* Sounds */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Sounds; sourceTree = "<group>"; };
+		B754479F289723CF009488E4 /* CeraPro-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CeraPro-Medium.otf"; sourceTree = "<group>"; };
+		B75447A4289725D0009488E4 /* TimerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerViewController.swift; sourceTree = "<group>"; };
 		B765A910289530C60009BC1C /* White Noise.MP3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "White Noise.MP3"; sourceTree = "<group>"; };
-		B765A91228953C340009BC1C /* A.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = A.mp3; sourceTree = "<group>"; };
-		B765A91328953C340009BC1C /* B.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = B.mp3; sourceTree = "<group>"; };
-		B765A91428953C340009BC1C /* C.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = C.mp3; sourceTree = "<group>"; };
 		B765A91828955B6A0009BC1C /* MixViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MixViewController.swift; sourceTree = "<group>"; };
 		B765A91B28955BA40009BC1C /* MixesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MixesTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -128,14 +126,13 @@
 				B7060B1C28944F0600FF042D /* AppDelegate.swift */,
 				B7060B1E28944F0600FF042D /* SceneDelegate.swift */,
 				B7060B2028944F0600FF042D /* ViewController.swift */,
+				B75447A3289725B1009488E4 /* Timer */,
 				B765A91A28955B700009BC1C /* MixesViewController */,
 				B765A910289530C60009BC1C /* White Noise.MP3 */,
-				B765A90D2895264E0009BC1C /* Cera Pro Bold.ttf */,
-				B765A90C2895264E0009BC1C /* Cera Pro Medium.ttf */,
 				B7060B5528945DFB00FF042D /* Extension.swift */,
-				B765A91228953C340009BC1C /* A.mp3 */,
-				B765A91328953C340009BC1C /* B.mp3 */,
-				B765A91428953C340009BC1C /* C.mp3 */,
+				B754479F289723CF009488E4 /* CeraPro-Medium.otf */,
+				B754479B28970128009488E4 /* Sounds */,
+				B7544799289700F7009488E4 /* Music */,
 				B7060B5728946E8800FF042D /* PlayViews */,
 				B7060B5228945CFC00FF042D /* Settings */,
 				B7060B2228944F0600FF042D /* Main.storyboard */,
@@ -179,6 +176,14 @@
 				B7060B5A28946EEE00FF042D /* PlayerCollectionViewCell.swift */,
 			);
 			path = PlayViews;
+			sourceTree = "<group>";
+		};
+		B75447A3289725B1009488E4 /* Timer */ = {
+			isa = PBXGroup;
+			children = (
+				B75447A4289725D0009488E4 /* TimerViewController.swift */,
+			);
+			path = Timer;
 			sourceTree = "<group>";
 		};
 		B765A91A28955B700009BC1C /* MixesViewController */ = {
@@ -294,13 +299,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B765A91728953C340009BC1C /* C.mp3 in Resources */,
 				B765A911289530C60009BC1C /* White Noise.MP3 in Resources */,
-				B765A91528953C340009BC1C /* A.mp3 in Resources */,
-				B765A90E2895264F0009BC1C /* Cera Pro Medium.ttf in Resources */,
-				B765A90F2895264F0009BC1C /* Cera Pro Bold.ttf in Resources */,
+				B754479C28970128009488E4 /* Sounds in Resources */,
 				B7060B2928944F0800FF042D /* LaunchScreen.storyboard in Resources */,
-				B765A91628953C340009BC1C /* B.mp3 in Resources */,
+				B75447A2289724DF009488E4 /* CeraPro-Medium.otf in Resources */,
+				B754479A289700F7009488E4 /* Music in Resources */,
 				B7060B2628944F0800FF042D /* Assets.xcassets in Resources */,
 				B7060B2428944F0600FF042D /* Main.storyboard in Resources */,
 			);
@@ -336,6 +339,7 @@
 				B765A91C28955BA40009BC1C /* MixesTableViewCell.swift in Sources */,
 				B7060B5B28946EEE00FF042D /* PlayerCollectionViewCell.swift in Sources */,
 				B7060B5428945D2900FF042D /* SettingsTableViewCell.swift in Sources */,
+				B75447A5289725D0009488E4 /* TimerViewController.swift in Sources */,
 				B7060B5128945CCE00FF042D /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

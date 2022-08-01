@@ -10,5 +10,6 @@ import UIKit
 class PlayerCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var imageView: UIImageView!
     
+    @IBOutlet weak var lockImage: UIImageView!
     @IBOutlet weak var labelMusic: UILabel!
 }

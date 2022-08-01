@@ -76,7 +76,7 @@ class ViewController: UIViewController {
         topLeftLabelViewHeight.constant = view.frame.height*0.075
         topRightLabelViewHeight.constant = view.frame.height*0.075
 
-        topLeftLabel.font = UIFont(name: "Cera Pro Medium", size: 50)
+        topLeftLabel.font = UIFont(name: "CeraPro-Medium", size: 50)
         topRightLabel.font = UIFont(name: "Cera Pro Medium", size: view.frame.height*0.025)
         bottomLeftLabel.font = UIFont(name: "Cera Pro Medium", size: view.frame.height*0.025)
         bottomRightLabel.font = UIFont(name: "Cera Pro Medium", size: view.frame.height*0.025)
@@ -100,11 +100,15 @@ class ViewController: UIViewController {
         view.layer.maskedCorners = [ .layerMaxXMaxYCorner, .layerMinXMaxYCorner]
     }
     @objc func topLeftViewTapped (){
-        
+        let destinationVC = storyboard?.instantiateViewController(withIdentifier: "PlayerViewController") as! PlayerViewController
+        destinationVC.modalPresentationStyle = .fullScreen
+        destinationVC.vcType = "sound"
+        self.present(destinationVC, animated: true, completion: nil)
     }
     @objc func topRightViewTapped (){
         let destinationVC = storyboard?.instantiateViewController(withIdentifier: "PlayerViewController") as! PlayerViewController
         destinationVC.modalPresentationStyle = .fullScreen
+        destinationVC.vcType = "music"
         self.present(destinationVC, animated: true, completion: nil)
     }
     @objc func bottomLeftViewTapped (){
