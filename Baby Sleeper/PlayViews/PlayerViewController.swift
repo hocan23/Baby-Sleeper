@@ -31,8 +31,7 @@ class PlayerViewController: UIViewController ,AVAudioPlayerDelegate  {
         playerCollection.dataSource = self
         playerCollection.delegate = self 
         setupUi()
-        playMusic(name: "Dream", type: "mp3")
-        playMusica(name: "Fly", type: "mp3")
+       
     }
     func setupUi(){
         myMixesLabel.isUserInteractionEnabled = true
@@ -92,44 +91,7 @@ class PlayerViewController: UIViewController ,AVAudioPlayerDelegate  {
     }
     
     
-    public func playMusica (name:String,type:String){
-        
-        if let playera = player, playera.isPlaying{
-//            playera.stop()
-//            playView.image = UIImage(named: "playBtn")
-//            animationView.isHidden=true
-//            isAnimate = false
-//             collectionAnimal.reloadData()
-        }else{
-//            homeAnimation(name: "detail3")
-//            isAnimate = true
-//             collectionAnimal.reloadData()
-            let urlString = Bundle.main.path(forResource: name, ofType: type)
-            
-            
-            do {
-                try AVAudioSession.sharedInstance().setMode(.default)
-                try AVAudioSession.sharedInstance().setActive(true, options: .notifyOthersOnDeactivation)
-                guard let urlString = urlString else{
-                    return
-                }
-                player = try AVAudioPlayer(contentsOf: URL(fileURLWithPath: urlString))
-                player?.delegate = self
-                
-                guard let playera = player else{
-                    return
-                }
-                playera.play()
-                playera.numberOfLoops = -1
-//                playView.image = UIImage(named: "pauseBtn")
-                
-            }
-            catch{
-                print("not work")
-            }
-        }
-    }
-    
+   
     
     
     
