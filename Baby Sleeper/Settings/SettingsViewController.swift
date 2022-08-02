@@ -20,14 +20,15 @@ class SettingsViewController: UIViewController{
     }
 //    var bannerView: GADBannerView!
 //    private var interstitial: GADInterstitialAd?
+    @IBOutlet weak var homeButton: UIButton!
     @IBOutlet weak var tableView: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
         setupUi()
-        homeView.isUserInteractionEnabled = true
-        homeView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(exitTapped)))
+//        homeView.isUserInteractionEnabled = true
+//        homeView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(exitTapped)))
 //        SKPaymentQueue.default().add(self)
         tableView.isScrollEnabled = false
        
@@ -58,13 +59,16 @@ class SettingsViewController: UIViewController{
     }
     func setupUi(){
         
-        homeView.anchor(top:view.topAnchor, bottom: nil, leading: view.leadingAnchor, trailing: nil, paddingTop: view.frame.height*0.07, paddingBottom: 0, paddingLeft: view.frame.height*0.04, paddingRight: 0, width: view.frame.height*0.05, height: view.frame.height*0.05)
-        tableView.anchor(top: homeView.bottomAnchor, bottom: nil, leading: view.leadingAnchor, trailing: view.trailingAnchor, paddingTop: 30, paddingBottom: 0, paddingLeft: 20, paddingRight: -20, width: 0, height: 250)
+//        homeView.anchor(top:view.topAnchor, bottom: nil, leading: view.leadingAnchor, trailing: nil, paddingTop: view.frame.height*0.07, paddingBottom: 0, paddingLeft: view.frame.height*0.04, paddingRight: 0, width: view.frame.height*0.05, height: view.frame.height*0.05)
+        tableView.anchor(top: homeButton.bottomAnchor, bottom: nil, leading: view.leadingAnchor, trailing: view.trailingAnchor, paddingTop: 30, paddingBottom: 0, paddingLeft: 20, paddingRight: -20, width: 0, height: 250)
         tableView.layer.cornerRadius = 20
     }
-    @objc func exitTapped (){
-        homeView.zoomIn()
+    @IBAction func homeButtonTapped(_ sender: UIButton) {
+        homeButton.zoomIn()
         self.dismiss(animated: true)
+        
+    }
+//    @objc func exitTapped (){
         
         //        if interstitial != nil {
         //            interstitial?.present(fromRootViewController: self)
@@ -74,7 +78,7 @@ class SettingsViewController: UIViewController{
         //            self.dismiss(animated: true)
         //        }
         //
-    }
+//    }
     
 }
 extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
@@ -84,7 +88,7 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "settingsCell", for: indexPath) as! SettingsTableViewCell
         cell.tableLabel.text = headers[indexPath.row]
-        cell.tableLabel.textColor = UIColor(red: 38/255, green: 51/255, blue: 117/255, alpha: 1)
+//        cell.tableLabel.textColor = UIColor(red: 38/255, green: 51/255, blue: 117/255, alpha: 1)
         if cell.isSelected {
             tableView.selectRow(at: indexPath, animated: true, scrollPosition: .none)
          } else {

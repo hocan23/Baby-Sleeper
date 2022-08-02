@@ -63,6 +63,8 @@ class ViewController: UIViewController {
         bottomLeftView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(bottomLeftViewTapped)))
         bottomRightView.isUserInteractionEnabled = true
         bottomRightView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(bottomRightViewTapped)))
+        removeAdView.isUserInteractionEnabled = true
+        removeAdView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(removeTapped)))
         topLeftView.layer.cornerRadius = 20
         topRightView.layer.cornerRadius = 20
         bottomRightView.layer.cornerRadius = 20
@@ -75,11 +77,11 @@ class ViewController: UIViewController {
         bottomRightLabelViewHeight.constant = view.frame.height*0.075
         topLeftLabelViewHeight.constant = view.frame.height*0.075
         topRightLabelViewHeight.constant = view.frame.height*0.075
-
-        topLeftLabel.font = UIFont(name: "CeraPro-Medium", size: 50)
-        topRightLabel.font = UIFont(name: "Cera Pro Medium", size: view.frame.height*0.025)
-        bottomLeftLabel.font = UIFont(name: "Cera Pro Medium", size: view.frame.height*0.025)
-        bottomRightLabel.font = UIFont(name: "Cera Pro Medium", size: view.frame.height*0.025)
+        
+        topLeftLabel.font = topLeftLabel.font.withSize(view.frame.height*0.025)
+        topRightLabel.font = topRightLabel.font.withSize(view.frame.height*0.025)
+        bottomLeftLabel.font = bottomLeftLabel.font.withSize(view.frame.height*0.025)
+        bottomRightLabel.font = bottomRightLabel.font.withSize(view.frame.height*0.025)
         if UIDevice.current.userInterfaceIdiom == .pad  {
             topStackLeading.constant = 50
             topStackTrailing.constant = 50
@@ -113,6 +115,11 @@ class ViewController: UIViewController {
     }
     @objc func bottomLeftViewTapped (){
         
+    }
+    @objc func removeTapped (){
+        let destinationVC = storyboard?.instantiateViewController(withIdentifier: "RemoveViewController") as! RemoveViewController
+        destinationVC.modalPresentationStyle = .fullScreen
+        self.present(destinationVC, animated: true, completion: nil)
     }
     @objc func bottomRightViewTapped (){
         let destinationVC = storyboard?.instantiateViewController(withIdentifier: "SettingsViewController") as! SettingsViewController

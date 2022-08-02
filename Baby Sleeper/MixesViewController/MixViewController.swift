@@ -6,8 +6,10 @@
 //
 
 import UIKit
+import AVFoundation
 
-class MixViewController: UIViewController {
+class MixViewController: UIViewController ,AVAudioPlayerDelegate  {
+    var player : AVAudioPlayer?
     @IBOutlet weak var saveButton: UIButton!
     
     @IBOutlet weak var closeButton: UIButton!
@@ -30,7 +32,15 @@ class MixViewController: UIViewController {
         dismiss(animated: true)
     }
     
+    @IBAction func valueChanged(_ sender: UISlider) {
+        print(sender.value)
+        GSAudio.sharedInstance.stopSound(soundFileName: playlist![sender.tag].musicName)
 
+        playlist?[sender.tag].musicVolume = sender.value
+        GSAudio.sharedInstance.playSound(soundFileName:  playlist![sender.tag].musicName,volume:  playlist![sender.tag].musicVolume)
+
+    }
+    
 }
 extension MixViewController: UITableViewDataSource, UITableViewDelegate {
     
@@ -40,7 +50,7 @@ extension MixViewController: UITableViewDataSource, UITableViewDelegate {
        }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-           return 2    // 2 rows in the cell, for demo purposes
+        return playlist?.count ?? 0    // 2 rows in the cell, for demo purposes
        }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -49,12 +59,12 @@ extension MixViewController: UITableViewDataSource, UITableViewDelegate {
         cell.labelTxt.text = playlist?[indexPath.row].musicName
         cell.slider.tag = indexPath.row
         cell.slider.setValue(playlist?[indexPath.row].musicVolume ?? 1, animated: true)
-        cell.slider.addTarget(tableView, action: Selector(("sliderChange:")), for: .valueChanged)
+//        cell.slider.addTarget(tableView, action: Selector(("sliderChange:")), for: .allTouchEvents)
 
         return UITableViewCell()
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 100
+        return 70
     }
    @objc func sliderChange(sender: UISlider) {
        print("changed")

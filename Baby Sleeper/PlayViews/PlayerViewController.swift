@@ -14,7 +14,7 @@ class PlayerViewController: UIViewController ,AVAudioPlayerDelegate  {
     var allSounds = Utils.allSounds
     var allMusics = Utils.allMusics
     var vcType : String?
-    
+
 
     
     @IBOutlet weak var mixImage: UIImageView!
@@ -30,32 +30,36 @@ class PlayerViewController: UIViewController ,AVAudioPlayerDelegate  {
         super.viewDidLoad()
         playerCollection.dataSource = self
         playerCollection.delegate = self 
-        playMusic(name: "Dream", type: "mp3")
         setupUi()
+        playMusic(name: "Dream", type: "mp3")
+        playMusica(name: "Fly", type: "mp3")
     }
     func setupUi(){
         myMixesLabel.isUserInteractionEnabled = true
         myMixesLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(myMixesLabelTapped)))
-        removeAd.isUserInteractionEnabled = true
-        removeAd.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(removeAdTapped)))
+//        removeAd.isUserInteractionEnabled = true
+//        removeAd.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(removeAdTapped)))
         timer.isUserInteractionEnabled = true
         timer.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(timerTapped)))
         playImage.isUserInteractionEnabled = true
         playImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(playImageTapped)))
         mixImage.isUserInteractionEnabled = true
         mixImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(mixImageTapped)))
-        
+        if vcType != "sound"{
+            myMixesLabel.isHidden = true
+            mixImage.isUserInteractionEnabled = false
+        }
     }
     @objc func myMixesLabelTapped (){
         myMixesLabel.zoomIn()
     }
-    @objc func removeAdTapped (){
-        removeAd.zoomIn()
-    }
+//    @objc func removeAdTapped (){
+//        removeAd.zoomIn()
+//    }
     @objc func timerTapped (){
         timer.zoomIn()
         let destinationVC = storyboard?.instantiateViewController(withIdentifier: "TimerViewController") as! TimerViewController
-        destinationVC.modalPresentationStyle = .fullScreen
+        destinationVC.modalPresentationStyle = .formSheet
         self.present(destinationVC, animated: true, completion: nil)
        
     }
@@ -65,6 +69,8 @@ class PlayerViewController: UIViewController ,AVAudioPlayerDelegate  {
         if isPlay == false{
             playImage.image = UIImage(named: "pause")
             GSAudio.sharedInstance.playSounds(soundFiles: currentPlayList)
+            Utils.setToMusicList(type: currentPlayList)
+
             isPlay = true
         }else{
             GSAudio.sharedInstance.stopSounds(soundFiles: currentPlayList)
@@ -79,10 +85,54 @@ class PlayerViewController: UIViewController ,AVAudioPlayerDelegate  {
         mixImage.zoomIn()
         let destinationVC = storyboard?.instantiateViewController(withIdentifier: "MixViewController") as! MixViewController
         destinationVC.modalPresentationStyle = .pageSheet
+        print(currentPlayList)
         destinationVC.playlist = currentPlayList
         self.present(destinationVC, animated: true, completion: nil)
 
     }
+    
+    
+    public func playMusica (name:String,type:String){
+        
+        if let playera = player, playera.isPlaying{
+//            playera.stop()
+//            playView.image = UIImage(named: "playBtn")
+//            animationView.isHidden=true
+//            isAnimate = false
+//             collectionAnimal.reloadData()
+        }else{
+//            homeAnimation(name: "detail3")
+//            isAnimate = true
+//             collectionAnimal.reloadData()
+            let urlString = Bundle.main.path(forResource: name, ofType: type)
+            
+            
+            do {
+                try AVAudioSession.sharedInstance().setMode(.default)
+                try AVAudioSession.sharedInstance().setActive(true, options: .notifyOthersOnDeactivation)
+                guard let urlString = urlString else{
+                    return
+                }
+                player = try AVAudioPlayer(contentsOf: URL(fileURLWithPath: urlString))
+                player?.delegate = self
+                
+                guard let playera = player else{
+                    return
+                }
+                playera.play()
+                playera.numberOfLoops = -1
+//                playView.image = UIImage(named: "pauseBtn")
+                
+            }
+            catch{
+                print("not work")
+            }
+        }
+    }
+    
+    
+    
+    
     public func playMusic (name:String,type:String){
         
         if let player = player, player.isPlaying{
@@ -143,6 +193,8 @@ class PlayerViewController: UIViewController ,AVAudioPlayerDelegate  {
     }
 
     @IBAction func homePressed(_ sender: UIButton) {
+        GSAudio.sharedInstance.stopSounds(soundFiles: currentPlayList)
+        player?.stop()
         dismiss(animated: true)
     }
 }
@@ -174,7 +226,7 @@ extension PlayerViewController :  UICollectionViewDelegate, UICollectionViewData
             if allSounds[indexPath.row].isSelected == true{
                 cell.backgroundColor = UIColor(red: 140/255, green: 1, blue: 227/255, alpha: 100)
             }else{
-                cell.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 75)
+                cell.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.35)
             }
         }else{
             cell.layer.cornerRadius = 20
@@ -189,7 +241,7 @@ extension PlayerViewController :  UICollectionViewDelegate, UICollectionViewData
             if allMusics[indexPath.row].isSelected == true{
                 cell.backgroundColor = UIColor(red: 140/255, green: 1, blue: 227/255, alpha: 100)
             }else{
-                cell.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 75)
+                cell.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.35)
             }
         }
        
@@ -214,25 +266,64 @@ extension PlayerViewController :  UICollectionViewDelegate, UICollectionViewData
             if allSounds[indexPath.row].isSelected == false{
                 allSounds[indexPath.row].isSelected = true
                 currentPlayList.append(allSounds[indexPath.row])
-
+                GSAudio.sharedInstance.playSounds(soundFiles: currentPlayList)
+                Utils.setToMusicList(type: currentPlayList)
+                playImage.image = UIImage(named: "pause")
+                isPlay = true
                 
             }else{
+                GSAudio.sharedInstance.stopSounds(soundFiles: currentPlayList)
+
                 allSounds[indexPath.row].isSelected = false
-                currentPlayList = currentPlayList.filter({ $0.musicName == allSounds[indexPath.row].musicName})
+                if currentPlayList.count == 1{
+                    currentPlayList = []
+                    playImage.image = UIImage(named: "play")
+                    GSAudio.sharedInstance.stopSounds(soundFiles: currentPlayList)
+
+                    isPlay=false
+                }else{
+                    currentPlayList = currentPlayList.filter({ $0.musicName != allSounds[indexPath.row].musicName})
+                }
+                
+                print(currentPlayList.count)
+                
+                if currentPlayList.count > 0{
+                GSAudio.sharedInstance.playSounds(soundFiles: currentPlayList)
+                    Utils.setToMusicList(type: currentPlayList)
+
+                    isPlay=true
+                }else{
+                    isPlay=false
+                }
             }
             }
         }else{
             if allMusics[indexPath.row].isPremium == true{
                 
             }else{
+                GSAudio.sharedInstance.stopSounds(soundFiles: currentPlayList)
+                playImage.image = UIImage(named: "play")
+                currentPlayList = []
             if allMusics[indexPath.row].isSelected == false{
+                allMusics = Utils.allMusics
+
+                playImage.image = UIImage(named: "pause")
+                isPlay=true
                 allMusics[indexPath.row].isSelected = true
                 currentPlayList.append(allMusics[indexPath.row])
+                GSAudio.sharedInstance.playSounds(soundFiles: currentPlayList)
+                Utils.setToMusicList(type: currentPlayList)
+
 
                 
             }else{
+                allMusics = Utils.allMusics
+
                 allMusics[indexPath.row].isSelected = false
-                currentPlayList = currentPlayList.filter({ $0.musicName == allMusics[indexPath.row].musicName})
+                isPlay=false
+                GSAudio.sharedInstance.stopSounds(soundFiles: currentPlayList)
+
+//                currentPlayList = currentPlayList.filter({ $0.musicName == allMusics[indexPath.row].musicName})
             }
             }
         }
