@@ -10,6 +10,7 @@ import AVFoundation
 
 class MixViewController: UIViewController ,AVAudioPlayerDelegate  {
     var player : AVAudioPlayer?
+    var playlistLocale : [String]?
     @IBOutlet weak var saveButton: UIButton!
     
     @IBOutlet weak var closeButton: UIButton!
@@ -21,12 +22,44 @@ class MixViewController: UIViewController ,AVAudioPlayerDelegate  {
         table.dataSource = self
         closeButton.layer.cornerRadius = 20
         saveButton.layer.cornerRadius = 20
-        // Do any additional setup after loading the view.
+        playlistLocale = Utils.readLocalList(key: "list")
+        view.overrideUserInterfaceStyle = .light
     }
-    
+    func alert (){
+        let alertController = UIAlertController(title: "New Folder", message: "name this folder", preferredStyle: .alert)
+
+        alertController.addTextField { (textField) in
+            // configure the properties of the text field
+            textField.placeholder = "Name"
+        }
+
+
+        // add the buttons/actions to the view controller
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        let saveAction = UIAlertAction(title: "Save", style: .default) { _ in
+
+            // this code runs when the user hits the "save" button
+
+            let inputName = alertController.textFields![0].text
+            self.playlistLocale?.append(inputName ?? "")
+            print(self.playlistLocale)
+            Utils.saveLocalList(array: self.playlistLocale ?? [], key: "list")
+            print(Utils.readLocalList(key: "list"))
+            Utils.saveLocal(array: self.playlist ?? [], key: inputName ?? "")
+            print(Utils.readLocale(key: inputName ?? ""))
+
+        }
+
+        alertController.addAction(cancelAction)
+        alertController.addAction(saveAction)
+
+        present(alertController, animated: true, completion: nil)
+    }
 
     @IBAction func saveTapped(_ sender: UIButton) {
-        
+        alert()
+        print(playlist)
+       
     }
     @IBAction func closedTapped(_ sender: Any) {
         dismiss(animated: true)
@@ -34,6 +67,7 @@ class MixViewController: UIViewController ,AVAudioPlayerDelegate  {
     
     @IBAction func valueChanged(_ sender: UISlider) {
         print(sender.value)
+        playlist?[sender.tag].musicVolume = sender.value
         GSAudio.sharedInstance.stopSound(soundFileName: playlist![sender.tag].musicName)
 
         playlist?[sender.tag].musicVolume = sender.value

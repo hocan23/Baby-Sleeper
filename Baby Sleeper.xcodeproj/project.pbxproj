@@ -71,6 +71,8 @@
 		B76778582897E907006D7D94 /* Mother Heartbeat.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B767783A2897E907006D7D94 /* Mother Heartbeat.mp3 */; };
 		B76778592897E907006D7D94 /* Night Crickets.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B767783B2897E907006D7D94 /* Night Crickets.mp3 */; };
 		B767785A2897E907006D7D94 /* Stew.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B767783C2897E907006D7D94 /* Stew.mp3 */; };
+		B780F914289AF1B600C1659C /* MixPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B780F913289AF1B600C1659C /* MixPlayerViewController.swift */; };
+		B780F917289AF3F600C1659C /* MixPlayerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B780F916289AF3F600C1659C /* MixPlayerTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -159,6 +161,8 @@
 		B767783A2897E907006D7D94 /* Mother Heartbeat.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Mother Heartbeat.mp3"; sourceTree = "<group>"; };
 		B767783B2897E907006D7D94 /* Night Crickets.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Night Crickets.mp3"; sourceTree = "<group>"; };
 		B767783C2897E907006D7D94 /* Stew.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Stew.mp3; sourceTree = "<group>"; };
+		B780F913289AF1B600C1659C /* MixPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MixPlayerViewController.swift; sourceTree = "<group>"; };
+		B780F916289AF3F600C1659C /* MixPlayerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MixPlayerTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -213,6 +217,7 @@
 				B7060B1E28944F0600FF042D /* SceneDelegate.swift */,
 				B7060B2028944F0600FF042D /* ViewController.swift */,
 				B720D0B5289853DD004B2715 /* RemoveViewController.swift */,
+				B780F915289AF28600C1659C /* MixPlayerView */,
 				B75447A3289725B1009488E4 /* Timer */,
 				B765A91A28955B700009BC1C /* MixesViewController */,
 				B7060B5528945DFB00FF042D /* Extension.swift */,
@@ -338,6 +343,15 @@
 				B76778242897E905006D7D94 /* White Noise.mp3 */,
 			);
 			path = Sounds;
+			sourceTree = "<group>";
+		};
+		B780F915289AF28600C1659C /* MixPlayerView */ = {
+			isa = PBXGroup;
+			children = (
+				B780F913289AF1B600C1659C /* MixPlayerViewController.swift */,
+				B780F916289AF3F600C1659C /* MixPlayerTableViewCell.swift */,
+			);
+			path = MixPlayerView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -520,11 +534,13 @@
 				B765A91928955B6A0009BC1C /* MixViewController.swift in Sources */,
 				B7060B2128944F0600FF042D /* ViewController.swift in Sources */,
 				B720D0B6289853DD004B2715 /* RemoveViewController.swift in Sources */,
+				B780F914289AF1B600C1659C /* MixPlayerViewController.swift in Sources */,
 				B7060B1D28944F0600FF042D /* AppDelegate.swift in Sources */,
 				B7060B1F28944F0600FF042D /* SceneDelegate.swift in Sources */,
 				B7060B5928946EB800FF042D /* PlayerViewController.swift in Sources */,
 				B7060B5628945DFC00FF042D /* Extension.swift in Sources */,
 				B765A91C28955BA40009BC1C /* MixesTableViewCell.swift in Sources */,
+				B780F917289AF3F600C1659C /* MixPlayerTableViewCell.swift in Sources */,
 				B7060B5B28946EEE00FF042D /* PlayerCollectionViewCell.swift in Sources */,
 				B7060B5428945D2900FF042D /* SettingsTableViewCell.swift in Sources */,
 				B75447A5289725D0009488E4 /* TimerViewController.swift in Sources */,

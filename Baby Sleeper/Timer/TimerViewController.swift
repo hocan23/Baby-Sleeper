@@ -6,13 +6,17 @@
 //
 
 import UIKit
-
+protocol TimerStartProtocol{
+    func timerStart(time:Int)
+}
 class TimerViewController: UIViewController {
 
     @IBOutlet weak var pickerTime: UIPickerView!
     
     @IBOutlet weak var saveBtn: UIButton!
     @IBOutlet weak var exitBtn: UIButton!
+    var delegate : TimerStartProtocol?
+
     var hour:Int = 0
     var minutes:Int = 0
     var time:Int?
@@ -23,27 +27,17 @@ class TimerViewController: UIViewController {
         pickerTime.setValue(UIColor.white, forKey: "textColor")
         saveBtn.layer.cornerRadius = 20
         exitBtn.layer.cornerRadius = 25
-        // Do any additional setup after loading the view.
+        view.overrideUserInterfaceStyle = .light
+    }
+    override func viewDidDisappear(_ animated: Bool) {
+        Utils.timerCount = time ?? 0
     }
     
     @IBAction func saveTapped(_ sender: Any) {
          time = (minutes+hour*60)*60
-        Timer.scheduledTimer(withTimeInterval: TimeInterval(time!), repeats: false) { (t) in
-            GSAudio.sharedInstance.stopSounds(soundFiles: Utils.listMusic ?? [])
-
-           print("time")
-        }
-//        var timer = Timer.scheduledTimer(timeInterval: 0.4, target: self, selector: #selector(update), userInfo: nil, repeats: true)
-
+        delegate?.timerStart(time: time ?? 0)
+       
     }
-//    @objc func update() {
-//        if(time! > 0) {
-//            time!-=1
-//            print("\(time)")
-//        }else{
-//
-//        }
-//    }
 
     @IBAction func exitTapped(_ sender: Any) {
         dismiss(animated: true)

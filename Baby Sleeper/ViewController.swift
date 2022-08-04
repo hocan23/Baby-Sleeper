@@ -54,6 +54,7 @@ class ViewController: UIViewController {
         setupUi()
         // Do any additional setup after loading the view.
     }
+  
     func setupUi(){
         topLeftView.isUserInteractionEnabled = true
         topLeftView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(topLeftViewTapped)))
@@ -92,6 +93,7 @@ class ViewController: UIViewController {
             bottomStackTopCons.constant = -30
             topStackBottomCons.constant = 80
             headerBottomCons.constant = 85
+            view.overrideUserInterfaceStyle = .light
 
         }
 
@@ -114,7 +116,11 @@ class ViewController: UIViewController {
         self.present(destinationVC, animated: true, completion: nil)
     }
     @objc func bottomLeftViewTapped (){
-        
+        bottomLeftView.zoomIn()
+        let destinationVC = storyboard?.instantiateViewController(withIdentifier: "MixPlayerViewController") as! MixPlayerViewController
+        destinationVC.modalPresentationStyle = .formSheet
+        self.present(destinationVC, animated: true, completion: nil)
+    
     }
     @objc func removeTapped (){
         let destinationVC = storyboard?.instantiateViewController(withIdentifier: "RemoveViewController") as! RemoveViewController

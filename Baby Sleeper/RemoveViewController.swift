@@ -51,7 +51,8 @@ setupUi()
         babyImage.clipsToBounds = true
             babyImage.layer.cornerRadius = 20
         babyImage.layer.maskedCorners = [ .layerMinXMaxYCorner, .layerMaxXMaxYCorner]
-        
+        view.overrideUserInterfaceStyle = .light
+
     }
     func leftRadius(view : UIView){
         view.clipsToBounds = true
