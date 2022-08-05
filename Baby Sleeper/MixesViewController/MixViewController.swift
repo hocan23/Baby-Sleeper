@@ -23,6 +23,7 @@ class MixViewController: UIViewController ,AVAudioPlayerDelegate  {
         super.viewDidLoad()
         table.delegate=self
         table.dataSource = self
+        table.separatorStyle = .none
         closeButton.layer.cornerRadius = 20
         saveButton.layer.cornerRadius = 20
         playlistLocale = Utils.readLocalList(key: "list")
@@ -42,7 +43,7 @@ class MixViewController: UIViewController ,AVAudioPlayerDelegate  {
         }
     }
     func alert (){
-        let alertController = UIAlertController(title: "New Folder", message: "name this folder", preferredStyle: .alert)
+        let alertController = UIAlertController(title: "Give New Name for Folder", message: "Please give a unique name for this folder", preferredStyle: .alert)
 
         alertController.addTextField { (textField) in
             // configure the properties of the text field
@@ -108,6 +109,7 @@ extension MixViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath as IndexPath) as! MixesTableViewCell
         cell.selectionStyle = .none
+        
         cell.labelTxt.text = playlist?[indexPath.row].musicName
         cell.slider.tag = indexPath.row
         cell.slider.setValue(playlist?[indexPath.row].musicVolume ?? 1, animated: true)

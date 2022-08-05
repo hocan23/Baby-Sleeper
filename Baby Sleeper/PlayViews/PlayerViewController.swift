@@ -19,7 +19,7 @@ class PlayerViewController: UIViewController ,AVAudioPlayerDelegate,TimerStartPr
     var timerCount:Int = 0
     var bannerView: GADBannerView!
     var isAd = false
-
+    var timerss : Timer = Timer()
     private var interstitial: GADInterstitialAd?
     @IBOutlet weak var timerLabel: UILabel!
     
@@ -35,11 +35,12 @@ class PlayerViewController: UIViewController ,AVAudioPlayerDelegate,TimerStartPr
     let spacing = CGSize(width: 5, height: 10)
     override func viewDidLoad() {
         super.viewDidLoad()
+        print( Utils.listMusic )
         playerCollection.dataSource = self
         playerCollection.delegate = self
         setupUi()
         timerLabel.isHidden = true
-        
+        mixImage.isUserInteractionEnabled = false
         if Utils.listMusic != nil{
             playImage.image = UIImage(named: "pause")
             isPlay = true
@@ -47,41 +48,85 @@ class PlayerViewController: UIViewController ,AVAudioPlayerDelegate,TimerStartPr
         view.overrideUserInterfaceStyle = .light
         
     }
-    
-    func timerStart(time: Int) {
-        timerCount = time
-        timerLabel.isHidden = false
-        Timer.scheduledTimer(withTimeInterval: TimeInterval(time), repeats: false) { (t) in
-            GSAudio.sharedInstance.stopSounds(soundFiles: Utils.listMusic ?? [])
-            self.playImage.image = UIImage(named: "play")
-            self.timerLabel.isHidden = true
-            
-            print("time")
-        }
-        print(time)
-        Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
-            self.timerCount -= 1
-            if self.timerCount == 0 {
-                print("Go!")
-                timer.invalidate()
-            } else {
-                    self.timerLabel.isHidden = false
+    override func viewDidDisappear(_ animated: Bool) {
+        if currentPlayList.isEmpty == false{
+            Utils.listMusic = currentPlayList
 
-                print(self.timer)
-                let watch = StopWatch(totalSeconds: self.timerCount)
-                print(watch.simpleTimeString)
-                let currentTime = watch.simpleTimeString
-                
-                                //self.dataLabel.setNeedsDisplay()
-                    self.timerLabel.text = "\(currentTime)"
-                            
-            }
         }
+    }
+    func timerStart(time: Int) {
+        timerCount = 15
+        timerss.invalidate()
+        timerss = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timerCounterr), userInfo: nil, repeats: true)
+        
+        
+        
+        
+        
+//        Timer.scheduledTimer(withTimeInterval: TimeInterval(time), repeats: false) { (t) in
+//            GSAudio.sharedInstance.stopSounds(soundFiles: Utils.listMusic ?? [])
+//            self.playImage.image = UIImage(named: "play")
+//            self.timerLabel.isHidden = true
+//
+//            print("time")
+//        }
+
+//        timerCount = time
+//        Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
+//            print(timer)
+//            self.timerCount -= 1
+//            if self.timerCount == 0 {
+//                print("Go!")
+//                GSAudio.sharedInstance.stopSounds(soundFiles: Utils.listMusic ?? [])
+//                           self.playImage.image = UIImage(named: "play")
+//                           self.timerLabel.isHidden = true
+//                timer.invalidate()
+//
+//            } else {
+//                    self.timerLabel.isHidden = false
+//
+//                print(self.timer)
+//                let watch = StopWatch(totalSeconds: self.timerCount)
+//                print(watch.simpleTimeString)
+//                let currentTime = watch.simpleTimeString
+//
+//                                //self.dataLabel.setNeedsDisplay()
+//                    self.timerLabel.text = "\(currentTime)"
+//
+//            }
+//        }
+    }
+    @objc func timerCounterr(){
+        self.timerCount -= 1
+        if self.timerCount == 0 {
+            print("Go!")
+            print(Utils.listMusic)
+            GSAudio.sharedInstance.stopSounds(soundFiles: Utils.listMusic ?? [])
+            isPlay=false
+                       self.playImage.image = UIImage(named: "play")
+                       self.timerLabel.isHidden = true
+            timerss.invalidate()
+          
+        } else {
+                self.timerLabel.isHidden = false
+
+            print(self.timer)
+            let watch = StopWatch(totalSeconds: self.timerCount)
+            print(watch.simpleTimeString)
+            let currentTime = watch.simpleTimeString
+            
+                            //self.dataLabel.setNeedsDisplay()
+                self.timerLabel.text = "\(currentTime)"
+                        
+        }
+    
     }
     func secondsToHoursMinutesSeconds(_ seconds: Int) -> (Int, Int, Int) {
         return (seconds / 3600, (seconds % 3600) / 60, (seconds % 3600) % 60)
     }
     func setupUi(){
+        mixImage.alpha = 0.25
+
         myMixesLabel.isUserInteractionEnabled = true
         myMixesLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(myMixesLabelTapped)))
         //        removeAd.isUserInteractionEnabled = true
@@ -95,6 +140,7 @@ class PlayerViewController: UIViewController ,AVAudioPlayerDelegate,TimerStartPr
         if vcType != "sound"{
             myMixesLabel.isHidden = true
             mixImage.isUserInteractionEnabled = false
+            mixImage.alpha = 0.25
         }
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -312,11 +358,12 @@ extension PlayerViewController :  UICollectionViewDelegate, UICollectionViewData
                 if allSounds[indexPath.row].isSelected == false{
                     allSounds[indexPath.row].isSelected = true
                     currentPlayList.append(allSounds[indexPath.row])
-                    GSAudio.sharedInstance.playSound(soundFileName: allSounds[indexPath.row].musicName)
+                    GSAudio.sharedInstance.playSounds(soundFiles: currentPlayList)
                     Utils.setToMusicList(type: currentPlayList)
                     playImage.image = UIImage(named: "pause")
                     isPlay = true
-                    
+                    mixImage.alpha = 1
+                    mixImage.isUserInteractionEnabled = true
                 }else{
                     allSounds[indexPath.row].isSelected = false
                     
@@ -336,10 +383,15 @@ extension PlayerViewController :  UICollectionViewDelegate, UICollectionViewData
                     if currentPlayList.count > 0{
                         GSAudio.sharedInstance.playSounds(soundFiles: currentPlayList)
                         Utils.setToMusicList(type: currentPlayList)
-                        
+                        mixImage.alpha = 1
                         isPlay=true
+                        mixImage.isUserInteractionEnabled = true
+
                     }else{
+                        mixImage.alpha = 0.25
                         isPlay=false
+                        mixImage.isUserInteractionEnabled = false
+
                     }
                 }
             }

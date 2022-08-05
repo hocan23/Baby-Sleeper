@@ -94,10 +94,10 @@ class ViewController: UIViewController {
         topLeftLabelViewHeight.constant = view.frame.height*0.075
         topRightLabelViewHeight.constant = view.frame.height*0.075
         
-        topLeftLabel.font = topLeftLabel.font.withSize(view.frame.height*0.025)
-        topRightLabel.font = topRightLabel.font.withSize(view.frame.height*0.025)
-        bottomLeftLabel.font = bottomLeftLabel.font.withSize(view.frame.height*0.025)
-        bottomRightLabel.font = bottomRightLabel.font.withSize(view.frame.height*0.025)
+        topLeftLabel.font = topLeftLabel.font.withSize(view.frame.height*0.022)
+        topRightLabel.font = topRightLabel.font.withSize(view.frame.height*0.022)
+        bottomLeftLabel.font = bottomLeftLabel.font.withSize(view.frame.height*0.022)
+        bottomRightLabel.font = bottomRightLabel.font.withSize(view.frame.height*0.022)
         if UIDevice.current.userInterfaceIdiom == .pad  {
             topStackLeading.constant = 50
             topStackTrailing.constant = 50

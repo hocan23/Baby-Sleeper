@@ -35,9 +35,10 @@ class TimerViewController: UIViewController {
     
     @IBAction func saveTapped(_ sender: Any) {
         saveBtn.zoomIn()
+        
          time = (minutes+hour*60)*60
         delegate?.timerStart(time: time ?? 0)
-       
+       dismiss(animated: true)
     }
 
     @IBAction func exitTapped(_ sender: Any) {
