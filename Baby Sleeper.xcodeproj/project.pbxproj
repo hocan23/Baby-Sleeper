@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		94293EC6AE9FDEC99F2E8FC2 /* Pods_Baby_Sleeper_Baby_SleeperUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C416C83DD47A464524A5579 /* Pods_Baby_Sleeper_Baby_SleeperUITests.framework */; };
+		A98779990B3B86EA92DC7069 /* Pods_Baby_Sleeper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A063A130F4ABCE80BE16938 /* Pods_Baby_Sleeper.framework */; };
 		B7060B1D28944F0600FF042D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7060B1C28944F0600FF042D /* AppDelegate.swift */; };
 		B7060B1F28944F0600FF042D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7060B1E28944F0600FF042D /* SceneDelegate.swift */; };
 		B7060B2128944F0600FF042D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7060B2028944F0600FF042D /* ViewController.swift */; };
@@ -73,6 +75,7 @@
 		B767785A2897E907006D7D94 /* Stew.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B767783C2897E907006D7D94 /* Stew.mp3 */; };
 		B780F914289AF1B600C1659C /* MixPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B780F913289AF1B600C1659C /* MixPlayerViewController.swift */; };
 		B780F917289AF3F600C1659C /* MixPlayerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B780F916289AF3F600C1659C /* MixPlayerTableViewCell.swift */; };
+		F993C8886EBA39435F262FE3 /* Pods_Baby_SleeperTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BDC9B6894D3F927F29B5B3E0 /* Pods_Baby_SleeperTests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -93,6 +96,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0C416C83DD47A464524A5579 /* Pods_Baby_Sleeper_Baby_SleeperUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Baby_Sleeper_Baby_SleeperUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4F76029C3540273F2A829804 /* Pods-Baby Sleeper-Baby SleeperUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Baby Sleeper-Baby SleeperUITests.debug.xcconfig"; path = "Target Support Files/Pods-Baby Sleeper-Baby SleeperUITests/Pods-Baby Sleeper-Baby SleeperUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		554F30FC9B9094BDF08052B4 /* Pods-Baby SleeperTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Baby SleeperTests.debug.xcconfig"; path = "Target Support Files/Pods-Baby SleeperTests/Pods-Baby SleeperTests.debug.xcconfig"; sourceTree = "<group>"; };
+		7CE8CF1298B7377C510EE92A /* Pods-Baby Sleeper.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Baby Sleeper.debug.xcconfig"; path = "Target Support Files/Pods-Baby Sleeper/Pods-Baby Sleeper.debug.xcconfig"; sourceTree = "<group>"; };
+		8768B2A06553C6132CACD622 /* Pods-Baby SleeperTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Baby SleeperTests.release.xcconfig"; path = "Target Support Files/Pods-Baby SleeperTests/Pods-Baby SleeperTests.release.xcconfig"; sourceTree = "<group>"; };
+		8A063A130F4ABCE80BE16938 /* Pods_Baby_Sleeper.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Baby_Sleeper.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8AB0FC64B091FD13FB9DB99A /* Pods-Baby Sleeper-Baby SleeperUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Baby Sleeper-Baby SleeperUITests.release.xcconfig"; path = "Target Support Files/Pods-Baby Sleeper-Baby SleeperUITests/Pods-Baby Sleeper-Baby SleeperUITests.release.xcconfig"; sourceTree = "<group>"; };
+		B527A7D1BD0C9E94DA4CF2BD /* Pods-Baby Sleeper.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Baby Sleeper.release.xcconfig"; path = "Target Support Files/Pods-Baby Sleeper/Pods-Baby Sleeper.release.xcconfig"; sourceTree = "<group>"; };
 		B7060B1928944F0600FF042D /* Baby Sleeper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Baby Sleeper.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B7060B1C28944F0600FF042D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B7060B1E28944F0600FF042D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -163,6 +174,7 @@
 		B767783C2897E907006D7D94 /* Stew.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Stew.mp3; sourceTree = "<group>"; };
 		B780F913289AF1B600C1659C /* MixPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MixPlayerViewController.swift; sourceTree = "<group>"; };
 		B780F916289AF3F600C1659C /* MixPlayerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MixPlayerTableViewCell.swift; sourceTree = "<group>"; };
+		BDC9B6894D3F927F29B5B3E0 /* Pods_Baby_SleeperTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Baby_SleeperTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -170,6 +182,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A98779990B3B86EA92DC7069 /* Pods_Baby_Sleeper.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -177,6 +190,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F993C8886EBA39435F262FE3 /* Pods_Baby_SleeperTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -184,12 +198,26 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				94293EC6AE9FDEC99F2E8FC2 /* Pods_Baby_Sleeper_Baby_SleeperUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5404A1EC655BEE14862E049B /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				7CE8CF1298B7377C510EE92A /* Pods-Baby Sleeper.debug.xcconfig */,
+				B527A7D1BD0C9E94DA4CF2BD /* Pods-Baby Sleeper.release.xcconfig */,
+				4F76029C3540273F2A829804 /* Pods-Baby Sleeper-Baby SleeperUITests.debug.xcconfig */,
+				8AB0FC64B091FD13FB9DB99A /* Pods-Baby Sleeper-Baby SleeperUITests.release.xcconfig */,
+				554F30FC9B9094BDF08052B4 /* Pods-Baby SleeperTests.debug.xcconfig */,
+				8768B2A06553C6132CACD622 /* Pods-Baby SleeperTests.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		B7060B1028944F0600FF042D = {
 			isa = PBXGroup;
 			children = (
@@ -197,6 +225,8 @@
 				B7060B3228944F0800FF042D /* Baby SleeperTests */,
 				B7060B3C28944F0800FF042D /* Baby SleeperUITests */,
 				B7060B1A28944F0600FF042D /* Products */,
+				B77660A6289D1A8400A86D6C /* Frameworks */,
+				5404A1EC655BEE14862E049B /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -345,6 +375,16 @@
 			path = Sounds;
 			sourceTree = "<group>";
 		};
+		B77660A6289D1A8400A86D6C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				8A063A130F4ABCE80BE16938 /* Pods_Baby_Sleeper.framework */,
+				0C416C83DD47A464524A5579 /* Pods_Baby_Sleeper_Baby_SleeperUITests.framework */,
+				BDC9B6894D3F927F29B5B3E0 /* Pods_Baby_SleeperTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		B780F915289AF28600C1659C /* MixPlayerView */ = {
 			isa = PBXGroup;
 			children = (
@@ -361,9 +401,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B7060B4328944F0800FF042D /* Build configuration list for PBXNativeTarget "Baby Sleeper" */;
 			buildPhases = (
+				A459E540F87DE23A1FC1FA2F /* [CP] Check Pods Manifest.lock */,
 				B7060B1528944F0600FF042D /* Sources */,
 				B7060B1628944F0600FF042D /* Frameworks */,
 				B7060B1728944F0600FF042D /* Resources */,
+				6B9032BAE0AC23199C80E768 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -378,6 +420,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B7060B4628944F0800FF042D /* Build configuration list for PBXNativeTarget "Baby SleeperTests" */;
 			buildPhases = (
+				0E7D8E84C7B1C4100BBE61F4 /* [CP] Check Pods Manifest.lock */,
 				B7060B2B28944F0800FF042D /* Sources */,
 				B7060B2C28944F0800FF042D /* Frameworks */,
 				B7060B2D28944F0800FF042D /* Resources */,
@@ -396,9 +439,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B7060B4928944F0800FF042D /* Build configuration list for PBXNativeTarget "Baby SleeperUITests" */;
 			buildPhases = (
+				BADB8E42454B5E979D36BFFB /* [CP] Check Pods Manifest.lock */,
 				B7060B3528944F0800FF042D /* Sources */,
 				B7060B3628944F0800FF042D /* Frameworks */,
 				B7060B3728944F0800FF042D /* Resources */,
+				FD50BFAA44ACE96F46EC4BDD /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -525,6 +570,109 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		0E7D8E84C7B1C4100BBE61F4 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Baby SleeperTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6B9032BAE0AC23199C80E768 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Baby Sleeper/Pods-Baby Sleeper-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Baby Sleeper/Pods-Baby Sleeper-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Baby Sleeper/Pods-Baby Sleeper-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A459E540F87DE23A1FC1FA2F /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Baby Sleeper-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BADB8E42454B5E979D36BFFB /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Baby Sleeper-Baby SleeperUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FD50BFAA44ACE96F46EC4BDD /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Baby Sleeper-Baby SleeperUITests/Pods-Baby Sleeper-Baby SleeperUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Baby Sleeper-Baby SleeperUITests/Pods-Baby Sleeper-Baby SleeperUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Baby Sleeper-Baby SleeperUITests/Pods-Baby Sleeper-Baby SleeperUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		B7060B1528944F0600FF042D /* Sources */ = {
@@ -716,14 +864,17 @@
 		};
 		B7060B4428944F0800FF042D /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7CE8CF1298B7377C510EE92A /* Pods-Baby Sleeper.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = PCV3VLUN64;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Baby Sleeper/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = babysleeper;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -734,8 +885,10 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
+				NEW_SETTING = "";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.babysleeper.Baby-Sleeper";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -744,14 +897,17 @@
 		};
 		B7060B4528944F0800FF042D /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B527A7D1BD0C9E94DA4CF2BD /* Pods-Baby Sleeper.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = PCV3VLUN64;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Baby Sleeper/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = babysleeper;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -762,8 +918,10 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
+				NEW_SETTING = "";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.babysleeper.Baby-Sleeper";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -772,6 +930,7 @@
 		};
 		B7060B4728944F0800FF042D /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 554F30FC9B9094BDF08052B4 /* Pods-Baby SleeperTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -792,6 +951,7 @@
 		};
 		B7060B4828944F0800FF042D /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8768B2A06553C6132CACD622 /* Pods-Baby SleeperTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -812,6 +972,7 @@
 		};
 		B7060B4A28944F0800FF042D /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4F76029C3540273F2A829804 /* Pods-Baby Sleeper-Baby SleeperUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -830,6 +991,7 @@
 		};
 		B7060B4B28944F0800FF042D /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8AB0FC64B091FD13FB9DB99A /* Pods-Baby Sleeper-Baby SleeperUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;

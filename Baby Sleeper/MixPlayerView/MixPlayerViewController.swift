@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+import GoogleMobileAds
 class MixPlayerViewController: UIViewController {
     @IBOutlet weak var table: UITableView!
     var playlist : [[BabyAudio]] = []
@@ -14,6 +14,9 @@ class MixPlayerViewController: UIViewController {
     var descriptionn : String?
     var beforeSelectNumber : Int?
     var selectNumber : Int?
+    var bannerView: GADBannerView!
+    private var interstitial: GADInterstitialAd?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         table.delegate = self
@@ -34,9 +37,24 @@ class MixPlayerViewController: UIViewController {
 //        playlist = Utils.readLocale(key: inputName ?? ""
         // Do any additional setup after loading the view.
     }
-    
+    override func viewWillAppear(_ animated: Bool) {
+        if Utils.isPremium == "premium"{
+            
+        }else{
+            createAdd()
+          
+            bannerView = GADBannerView(adSize: GADAdSizeBanner)
+            bannerView.adUnitID = Utils.bannerId
+            bannerView.rootViewController = self
+            bannerView.load(GADRequest())
+            bannerView.delegate = self
+        }
+    }
     override func viewDidDisappear(_ animated: Bool) {
-        Utils.listMusic = playlist[selectNumber ?? 0]
+        if playlist.isEmpty == false{
+            Utils.listMusic = playlist[selectNumber ?? 0]
+
+        }
 
     }
     /*
@@ -111,4 +129,48 @@ extension MixPlayerViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     
+}
+extension MixPlayerViewController: GADBannerViewDelegate, GADFullScreenContentDelegate{
+    func createAdd() {
+        let request = GADRequest()
+        interstitial?.fullScreenContentDelegate = self
+        GADInterstitialAd.load(withAdUnitID:Utils.fullScreenAdId,
+                               request: request,
+                               completionHandler: { [self] ad, error in
+            if let error = error {
+                print("Failed to load interstitial ad with error: \(error.localizedDescription)")
+                return
+            }
+            interstitial = ad
+        }
+        )
+    }
+    func interstitialWillDismissScreen(_ ad: GADInterstitialAd) {
+        print("interstitialWillDismissScreen")
+    }
+    func bannerViewDidReceiveAd(_ bannerView: GADBannerView) {
+        // Add banner to view and add constraints as above.
+        addBannerViewToView(bannerView)
+    }
+    
+    func addBannerViewToView(_ bannerView: GADBannerView) {
+        bannerView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(bannerView)
+        view.addConstraints(
+            [NSLayoutConstraint(item: bannerView,
+                                attribute: .bottom,
+                                relatedBy: .equal,
+                                toItem: bottomLayoutGuide,
+                                attribute: .top,
+                                multiplier: 1,
+                                constant: 0),
+             NSLayoutConstraint(item: bannerView,
+                                attribute: .centerX,
+                                relatedBy: .equal,
+                                toItem: view,
+                                attribute: .centerX,
+                                multiplier: 1,
+                                constant: 0)
+            ])
+    }
 }

@@ -645,7 +645,7 @@
                                         </subviews>
                                     </stackView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eap-cv-xMZ">
-                                        <rect key="frame" x="29.666666666666671" y="61" width="60" height="21"/>
+                                        <rect key="frame" x="29.666666666666671" y="4" width="60" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="60" id="LKr-vj-M2w"/>
                                             <constraint firstAttribute="height" constant="21" id="cQX-jP-gde"/>
@@ -658,11 +658,11 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.5" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="8eK-MW-4HI" firstAttribute="top" secondItem="NOV-PU-tiL" secondAttribute="top" constant="25" id="Joc-ex-eBZ"/>
-                                    <constraint firstItem="eap-cv-xMZ" firstAttribute="top" secondItem="8eK-MW-4HI" secondAttribute="bottom" constant="5" id="Tzm-Sb-HvS"/>
                                     <constraint firstItem="eap-cv-xMZ" firstAttribute="centerX" secondItem="CYT-1G-5hS" secondAttribute="centerX" id="XVb-Is-cuL"/>
                                     <constraint firstAttribute="height" constant="145" id="ZWS-uE-ZES"/>
                                     <constraint firstAttribute="bottom" secondItem="8eK-MW-4HI" secondAttribute="bottom" constant="89" id="kaF-cj-ege"/>
                                     <constraint firstItem="8eK-MW-4HI" firstAttribute="leading" secondItem="NOV-PU-tiL" secondAttribute="leading" constant="30" id="sJA-rl-vEF"/>
+                                    <constraint firstItem="8eK-MW-4HI" firstAttribute="top" secondItem="eap-cv-xMZ" secondAttribute="bottom" id="uMk-8i-Lye"/>
                                     <constraint firstAttribute="trailing" secondItem="8eK-MW-4HI" secondAttribute="trailing" constant="30" id="xhH-4m-KYe"/>
                                 </constraints>
                             </view>

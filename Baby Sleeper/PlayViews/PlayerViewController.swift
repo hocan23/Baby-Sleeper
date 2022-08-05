@@ -7,6 +7,7 @@
 
 import UIKit
 import AVFAudio
+import GoogleMobileAds
 
 class PlayerViewController: UIViewController ,AVAudioPlayerDelegate,TimerStartProtocol  {
     
@@ -16,7 +17,10 @@ class PlayerViewController: UIViewController ,AVAudioPlayerDelegate,TimerStartPr
     var allMusics = Utils.allMusics
     var vcType : String?
     var timerCount:Int = 0
+    var bannerView: GADBannerView!
+    var isAd = false
 
+    private var interstitial: GADInterstitialAd?
     @IBOutlet weak var timerLabel: UILabel!
     
     
@@ -32,27 +36,27 @@ class PlayerViewController: UIViewController ,AVAudioPlayerDelegate,TimerStartPr
     override func viewDidLoad() {
         super.viewDidLoad()
         playerCollection.dataSource = self
-        playerCollection.delegate = self 
+        playerCollection.delegate = self
         setupUi()
-        self.timerLabel.layoutIfNeeded()
         timerLabel.isHidden = true
-       
+        
         if Utils.listMusic != nil{
             playImage.image = UIImage(named: "pause")
             isPlay = true
         }
         view.overrideUserInterfaceStyle = .light
-
+        
     }
+    
     func timerStart(time: Int) {
         timerCount = time
         timerLabel.isHidden = false
         Timer.scheduledTimer(withTimeInterval: TimeInterval(time), repeats: false) { (t) in
             GSAudio.sharedInstance.stopSounds(soundFiles: Utils.listMusic ?? [])
             self.playImage.image = UIImage(named: "play")
-            self.timerLabel.isHidden == true
-
-           print("time")
+            self.timerLabel.isHidden = true
+            
+            print("time")
         }
         print(time)
         Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
@@ -61,12 +65,16 @@ class PlayerViewController: UIViewController ,AVAudioPlayerDelegate,TimerStartPr
                 print("Go!")
                 timer.invalidate()
             } else {
-                self.timerLabel.isHidden = false
+                    self.timerLabel.isHidden = false
+
                 print(self.timer)
                 let watch = StopWatch(totalSeconds: self.timerCount)
                 print(watch.simpleTimeString)
                 let currentTime = watch.simpleTimeString
+                
+                                //self.dataLabel.setNeedsDisplay()
                     self.timerLabel.text = "\(currentTime)"
+                            
             }
         }
     }
@@ -76,8 +84,8 @@ class PlayerViewController: UIViewController ,AVAudioPlayerDelegate,TimerStartPr
     func setupUi(){
         myMixesLabel.isUserInteractionEnabled = true
         myMixesLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(myMixesLabelTapped)))
-//        removeAd.isUserInteractionEnabled = true
-//        removeAd.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(removeAdTapped)))
+        //        removeAd.isUserInteractionEnabled = true
+        //        removeAd.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(removeAdTapped)))
         timer.isUserInteractionEnabled = true
         timer.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(timerTapped)))
         playImage.isUserInteractionEnabled = true
@@ -90,26 +98,40 @@ class PlayerViewController: UIViewController ,AVAudioPlayerDelegate,TimerStartPr
         }
     }
     override func viewWillAppear(_ animated: Bool) {
-       
-
+        if isAd == true {
+            self.dismiss(animated: true)
+            
+        }
+        if Utils.isPremium == "premium"{
+            
+        }else{
+            createAdd()
+            
+            bannerView = GADBannerView(adSize: GADAdSizeBanner)
+            bannerView.adUnitID = Utils.bannerId
+            bannerView.rootViewController = self
+            bannerView.load(GADRequest())
+            bannerView.delegate = self
+        }
+        
     }
-  
+    
     @objc func myMixesLabelTapped (){
         myMixesLabel.zoomIn()
         let destinationVC = storyboard?.instantiateViewController(withIdentifier: "MixPlayerViewController") as! MixPlayerViewController
         destinationVC.modalPresentationStyle = .formSheet
         self.present(destinationVC, animated: true, completion: nil)
     }
-//    @objc func removeAdTapped (){
-//        removeAd.zoomIn()
-//    }
+    //    @objc func removeAdTapped (){
+    //        removeAd.zoomIn()
+    //    }
     @objc func timerTapped (){
         timer.zoomIn()
         let destinationVC = storyboard?.instantiateViewController(withIdentifier: "TimerViewController") as! TimerViewController
         destinationVC.delegate = self
         destinationVC.modalPresentationStyle = .formSheet
         self.present(destinationVC, animated: true, completion: nil)
-       
+        
     }
     @objc func playImageTapped (){
         playImage.zoomIn()
@@ -124,7 +146,7 @@ class PlayerViewController: UIViewController ,AVAudioPlayerDelegate,TimerStartPr
             playImage.image = UIImage(named: "pause")
             GSAudio.sharedInstance.playSounds(soundFiles: currentPlayList)
             Utils.setToMusicList(type: currentPlayList)
-
+            
             isPlay = true
         }else{
             GSAudio.sharedInstance.stopSounds(soundFiles: currentPlayList)
@@ -132,8 +154,8 @@ class PlayerViewController: UIViewController ,AVAudioPlayerDelegate,TimerStartPr
             isPlay = false
         }
         
-
-
+        
+        
     }
     @objc func mixImageTapped (){
         mixImage.zoomIn()
@@ -142,11 +164,11 @@ class PlayerViewController: UIViewController ,AVAudioPlayerDelegate,TimerStartPr
         print(currentPlayList)
         destinationVC.playlist = currentPlayList
         self.present(destinationVC, animated: true, completion: nil)
-
+        
     }
     
     
-   
+    
     
     
     
@@ -154,14 +176,14 @@ class PlayerViewController: UIViewController ,AVAudioPlayerDelegate,TimerStartPr
         
         if let player = player, player.isPlaying{
             player.stop()
-//            playView.image = UIImage(named: "playBtn")
-//            animationView.isHidden=true
-//            isAnimate = false
-//             collectionAnimal.reloadData()
+            //            playView.image = UIImage(named: "playBtn")
+            //            animationView.isHidden=true
+            //            isAnimate = false
+            //             collectionAnimal.reloadData()
         }else{
-//            homeAnimation(name: "detail3")
-//            isAnimate = true
-//             collectionAnimal.reloadData()
+            //            homeAnimation(name: "detail3")
+            //            isAnimate = true
+            //             collectionAnimal.reloadData()
             let urlString = Bundle.main.path(forResource: name, ofType: type)
             
             
@@ -179,7 +201,7 @@ class PlayerViewController: UIViewController ,AVAudioPlayerDelegate,TimerStartPr
                 }
                 player.play()
                 player.numberOfLoops = -1
-//                playView.image = UIImage(named: "pauseBtn")
+                //                playView.image = UIImage(named: "pauseBtn")
                 
             }
             catch{
@@ -189,29 +211,35 @@ class PlayerViewController: UIViewController ,AVAudioPlayerDelegate,TimerStartPr
     }
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
         print("finished")//It is working now! printed "finished"!
-//        playMusic(name: "White Noise", type: "mp3")
-
-//        playView.image = UIImage(named: "playBtn")
-//        animationView.isHidden=true
-//        if selectedItemNumber == cellIds.count-1{
-//            selectedItemNumber = -1
-//        }
-//        if selectedItemNumber < cellIds.count-1{
-//            if isAuto == true{
-//                selectedItemNumber += 1
-//                //                setupUi()
-//                playMusic(name: cellIds[selectedItemNumber].letterSound, type: "mp3")
-//                self.collectionAnimal.scrollToItem(at:IndexPath(item: selectedItemNumber, section: 0), at: .right, animated: false)
-//            }
-//        }else{
-//            isAuto = false
-//        }
-//
+        //        playMusic(name: "White Noise", type: "mp3")
+        
+        //        playView.image = UIImage(named: "playBtn")
+        //        animationView.isHidden=true
+        //        if selectedItemNumber == cellIds.count-1{
+        //            selectedItemNumber = -1
+        //        }
+        //        if selectedItemNumber < cellIds.count-1{
+        //            if isAuto == true{
+        //                selectedItemNumber += 1
+        //                //                setupUi()
+        //                playMusic(name: cellIds[selectedItemNumber].letterSound, type: "mp3")
+        //                self.collectionAnimal.scrollToItem(at:IndexPath(item: selectedItemNumber, section: 0), at: .right, animated: false)
+        //            }
+        //        }else{
+        //            isAuto = false
+        //        }
+        //
     }
-
+    
     @IBAction func homePressed(_ sender: UIButton) {
         
-        dismiss(animated: true)
+        if interstitial != nil {
+            interstitial?.present(fromRootViewController: self)
+            isAd = true
+        } else {
+            print("Ad wasn't ready")
+            self.dismiss(animated: true)
+        }
     }
 }
 extension PlayerViewController :  UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
@@ -220,10 +248,10 @@ extension PlayerViewController :  UICollectionViewDelegate, UICollectionViewData
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if vcType == "sound"{
             return Utils.allSounds.count
-
+            
         }else{
             return Utils.allMusics.count
-
+            
         }
     }
     
@@ -235,7 +263,7 @@ extension PlayerViewController :  UICollectionViewDelegate, UICollectionViewData
             cell.labelMusic.text = allSounds[indexPath.row].musicName
             if allSounds[indexPath.row].isPremium == true{
                 cell.lockImage.isHidden = false
-
+                
             }else{
                 cell.lockImage.isHidden = true
             }
@@ -250,7 +278,7 @@ extension PlayerViewController :  UICollectionViewDelegate, UICollectionViewData
             cell.labelMusic.text = allMusics[indexPath.row].musicName
             if allMusics[indexPath.row].isPremium == true{
                 cell.lockImage.isHidden = false
-
+                
             }else{
                 cell.lockImage.isHidden = true
             }
@@ -260,15 +288,15 @@ extension PlayerViewController :  UICollectionViewDelegate, UICollectionViewData
                 cell.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.35)
             }
         }
-       
-       
-       
         
-//        cell.layer.masksToBounds = false
-//        cell.layer.shadowColor = UIColor(red: 0.762, green: 0.893, blue: 1, alpha: 0.51).cgColor
-//        cell.layer.shadowOffset = CGSize(width: -3, height: 4)
-//        cell.layer.shadowRadius = 10
-//        cell.layer.shadowOpacity = 1
+        
+        
+        
+        //        cell.layer.masksToBounds = false
+        //        cell.layer.shadowColor = UIColor(red: 0.762, green: 0.893, blue: 1, alpha: 0.51).cgColor
+        //        cell.layer.shadowOffset = CGSize(width: -3, height: 4)
+        //        cell.layer.shadowRadius = 10
+        //        cell.layer.shadowOpacity = 1
         
         return cell
         
@@ -276,44 +304,44 @@ extension PlayerViewController :  UICollectionViewDelegate, UICollectionViewData
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         GSAudio.sharedInstance.stopSounds(soundFiles: Utils.listMusic ?? [])
-
+        
         if vcType == "sound"{
             if allSounds[indexPath.row].isPremium == true{
                 
             }else{
-            if allSounds[indexPath.row].isSelected == false{
-                allSounds[indexPath.row].isSelected = true
-                currentPlayList.append(allSounds[indexPath.row])
-                GSAudio.sharedInstance.playSound(soundFileName: allSounds[indexPath.row].musicName)
-                Utils.setToMusicList(type: currentPlayList)
-                playImage.image = UIImage(named: "pause")
-                isPlay = true
-                
-            }else{
-                allSounds[indexPath.row].isSelected = false
-
-                GSAudio.sharedInstance.stopSounds(soundFiles: currentPlayList)
-              
-                if currentPlayList.count == 1{
-                    currentPlayList = []
-                    playImage.image = UIImage(named: "play")
-                    GSAudio.sharedInstance.stopSound(soundFileName: allSounds[indexPath.row].musicName)
-                    isPlay=false
-                }else{
-                    currentPlayList = currentPlayList.filter({ $0.musicName != allSounds[indexPath.row].musicName})
-                }
-                
-                print(currentPlayList.count)
-                
-                if currentPlayList.count > 0{
-                GSAudio.sharedInstance.playSounds(soundFiles: currentPlayList)
+                if allSounds[indexPath.row].isSelected == false{
+                    allSounds[indexPath.row].isSelected = true
+                    currentPlayList.append(allSounds[indexPath.row])
+                    GSAudio.sharedInstance.playSound(soundFileName: allSounds[indexPath.row].musicName)
                     Utils.setToMusicList(type: currentPlayList)
-
-                    isPlay=true
+                    playImage.image = UIImage(named: "pause")
+                    isPlay = true
+                    
                 }else{
-                    isPlay=false
+                    allSounds[indexPath.row].isSelected = false
+                    
+                    GSAudio.sharedInstance.stopSounds(soundFiles: currentPlayList)
+                    
+                    if currentPlayList.count == 1{
+                        currentPlayList = []
+                        playImage.image = UIImage(named: "play")
+                        GSAudio.sharedInstance.stopSound(soundFileName: allSounds[indexPath.row].musicName)
+                        isPlay=false
+                    }else{
+                        currentPlayList = currentPlayList.filter({ $0.musicName != allSounds[indexPath.row].musicName})
+                    }
+                    
+                    print(currentPlayList.count)
+                    
+                    if currentPlayList.count > 0{
+                        GSAudio.sharedInstance.playSounds(soundFiles: currentPlayList)
+                        Utils.setToMusicList(type: currentPlayList)
+                        
+                        isPlay=true
+                    }else{
+                        isPlay=false
+                    }
                 }
-            }
             }
         }else{
             if allMusics[indexPath.row].isPremium == true{
@@ -322,27 +350,27 @@ extension PlayerViewController :  UICollectionViewDelegate, UICollectionViewData
                 GSAudio.sharedInstance.stopSounds(soundFiles: currentPlayList)
                 playImage.image = UIImage(named: "play")
                 currentPlayList = []
-            if allMusics[indexPath.row].isSelected == false{
-                allMusics = Utils.allMusics
-
-                playImage.image = UIImage(named: "pause")
-                isPlay=true
-                allMusics[indexPath.row].isSelected = true
-                currentPlayList.append(allMusics[indexPath.row])
-                GSAudio.sharedInstance.playSounds(soundFiles: currentPlayList)
-                Utils.setToMusicList(type: currentPlayList)
-
-
-                
-            }else{
-                allMusics = Utils.allMusics
-
-                allMusics[indexPath.row].isSelected = false
-                isPlay=false
-                GSAudio.sharedInstance.stopSounds(soundFiles: currentPlayList)
-
-//                currentPlayList = currentPlayList.filter({ $0.musicName == allMusics[indexPath.row].musicName})
-            }
+                if allMusics[indexPath.row].isSelected == false{
+                    allMusics = Utils.allMusics
+                    
+                    playImage.image = UIImage(named: "pause")
+                    isPlay=true
+                    allMusics[indexPath.row].isSelected = true
+                    currentPlayList.append(allMusics[indexPath.row])
+                    GSAudio.sharedInstance.playSounds(soundFiles: currentPlayList)
+                    Utils.setToMusicList(type: currentPlayList)
+                    
+                    
+                    
+                }else{
+                    allMusics = Utils.allMusics
+                    
+                    allMusics[indexPath.row].isSelected = false
+                    isPlay=false
+                    GSAudio.sharedInstance.stopSounds(soundFiles: currentPlayList)
+                    
+                    //                currentPlayList = currentPlayList.filter({ $0.musicName == allMusics[indexPath.row].musicName})
+                }
             }
         }
         
@@ -400,29 +428,29 @@ extension PlayerViewController :  UICollectionViewDelegate, UICollectionViewData
 }
 
 struct StopWatch {
-
+    
     var totalSeconds: Int
-
+    
     var years: Int {
         return totalSeconds / 31536000
     }
-
+    
     var days: Int {
         return (totalSeconds % 31536000) / 86400
     }
-
+    
     var hours: Int {
         return (totalSeconds % 86400) / 3600
     }
-
+    
     var minutes: Int {
         return (totalSeconds % 3600) / 60
     }
-
+    
     var seconds: Int {
         return totalSeconds % 60
     }
-
+    
     //simplified to what OP wanted
     var hoursMinutesAndSeconds: (hours: Int, minutes: Int, seconds: Int) {
         return (hours, minutes, seconds)
@@ -430,15 +458,59 @@ struct StopWatch {
 }
 
 extension StopWatch {
-
+    
     var simpleTimeString: String {
         let hoursText = timeText(from: hours)
         let minutesText = timeText(from: minutes)
         let secondsText = timeText(from: seconds)
         return "\(hoursText):\(minutesText):\(secondsText)"
     }
-
+    
     private func timeText(from number: Int) -> String {
         return number < 10 ? "0\(number)" : "\(number)"
+    }
+}
+extension PlayerViewController: GADBannerViewDelegate, GADFullScreenContentDelegate{
+    func createAdd() {
+        let request = GADRequest()
+        interstitial?.fullScreenContentDelegate = self
+        GADInterstitialAd.load(withAdUnitID:Utils.fullScreenAdId,
+                               request: request,
+                               completionHandler: { [self] ad, error in
+            if let error = error {
+                print("Failed to load interstitial ad with error: \(error.localizedDescription)")
+                return
+            }
+            interstitial = ad
+        }
+        )
+    }
+    func interstitialWillDismissScreen(_ ad: GADInterstitialAd) {
+        print("interstitialWillDismissScreen")
+    }
+    func bannerViewDidReceiveAd(_ bannerView: GADBannerView) {
+        // Add banner to view and add constraints as above.
+        addBannerViewToView(bannerView)
+    }
+    
+    func addBannerViewToView(_ bannerView: GADBannerView) {
+        bannerView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(bannerView)
+        view.addConstraints(
+            [NSLayoutConstraint(item: bannerView,
+                                attribute: .bottom,
+                                relatedBy: .equal,
+                                toItem: bottomLayoutGuide,
+                                attribute: .top,
+                                multiplier: 1,
+                                constant: 0),
+             NSLayoutConstraint(item: bannerView,
+                                attribute: .centerX,
+                                relatedBy: .equal,
+                                toItem: view,
+                                attribute: .centerX,
+                                multiplier: 1,
+                                constant: 0)
+            ])
     }
 }

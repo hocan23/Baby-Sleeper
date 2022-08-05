@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+import StoreKit
 class RemoveViewController: UIViewController {
 
     @IBOutlet weak var babyImage: UIImageView!
@@ -18,6 +18,11 @@ class RemoveViewController: UIViewController {
     @IBOutlet weak var midLeftView: UIView!
     @IBOutlet weak var topRightView: UIView!
     @IBOutlet weak var topLeftView: UIView!
+    
+    var models = [SKProduct]()
+    enum Products : String,CaseIterable{
+        case removeAds = "com.SIX11.learnABC.removeAds"
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -71,7 +76,13 @@ setupUi()
        
     }
     @objc func topLeftViewTapped (){
-       
+        if SKPaymentQueue.canMakePayments(){
+            let set :  Set<String> = [Products.removeAds.rawValue]
+            let productRequest = SKProductsRequest(productIdentifiers: set)
+            productRequest.delegate = self
+            productRequest.start()
+            
+        }
     }
     @objc func topRightViewTapped (){
        
@@ -103,6 +114,56 @@ setupUi()
     }
     
     @IBAction func backBtnTapped(_ sender: UIButton) {
+        
         dismiss(animated: true)
     }
+}
+extension RemoveViewController: SKProductsRequestDelegate, SKPaymentTransactionObserver{
+    
+    func productsRequest(_ request: SKProductsRequest, didReceive response: SKProductsResponse) {
+        print(response.products.first)
+        if let oproduct = response.products.first{
+            
+            self.purchase(aproduct: oproduct)
+        }
+    }
+    
+    func purchase ( aproduct: SKProduct){
+        let payment = SKPayment(product: aproduct)
+        SKPaymentQueue.default().add(self)
+        SKPaymentQueue.default().add(payment)
+        
+    }
+    
+    func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
+        for transaction in transactions {
+            switch transaction.transactionState{
+            case .purchasing:
+                print("pur")
+            case .purchased:
+                SKPaymentQueue.default().finishTransaction(transaction)
+                Utils.saveLocal(array: "premium", key: "purchase")
+                Utils.isPremium = "premium"
+
+            case .failed:
+                SKPaymentQueue.default().finishTransaction(transaction)
+            case .restored:
+                Utils.saveLocal(array: "premium", key: "purchase")
+                Utils.isPremium = "premium"
+
+                print("restore")
+            case .deferred:
+                print("deffered")
+            default: break
+            }
+            
+        }
+    }
+    
+    func fetchProducts(){
+        let request = SKProductsRequest(productIdentifiers: Set(Products.allCases.compactMap({$0.rawValue})))
+        request.delegate = self
+        request.start()
+    }
+    
 }
