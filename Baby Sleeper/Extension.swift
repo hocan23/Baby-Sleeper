@@ -63,8 +63,8 @@ extension UIView{
 
 class Utils{
     
-    static var fullScreenAdId = "ca-app-pub-3940256099942544/4411468910"
-    static var  bannerId = "ca-app-pub-3940256099942544/2934735716"
+    static var fullScreenAdId = "ca-app-pub-3940256099942544/44114689"
+    static var  bannerId = "ca-app-pub-3940256099942544/29347357"
     static var isPremium = ""
     static var listMusic :[BabyAudio]?
     static var timerCount = 0

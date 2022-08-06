@@ -43,7 +43,7 @@ class MixViewController: UIViewController ,AVAudioPlayerDelegate  {
         }
     }
     func alert (){
-        let alertController = UIAlertController(title: "Give New Name for Folder", message: "Please give a unique name for this folder", preferredStyle: .alert)
+        let alertController = UIAlertController(title: "Mixes Name?", message: "", preferredStyle: .alert)
 
         alertController.addTextField { (textField) in
             // configure the properties of the text field
