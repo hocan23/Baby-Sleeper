@@ -73,6 +73,7 @@
 		B76778582897E907006D7D94 /* Mother Heartbeat.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B767783A2897E907006D7D94 /* Mother Heartbeat.mp3 */; };
 		B76778592897E907006D7D94 /* Night Crickets.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B767783B2897E907006D7D94 /* Night Crickets.mp3 */; };
 		B767785A2897E907006D7D94 /* Stew.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B767783C2897E907006D7D94 /* Stew.mp3 */; };
+		B77B6456289EAC4E00403879 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B77B6455289EAC4E00403879 /* StoreKit.framework */; };
 		B780F914289AF1B600C1659C /* MixPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B780F913289AF1B600C1659C /* MixPlayerViewController.swift */; };
 		B780F917289AF3F600C1659C /* MixPlayerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B780F916289AF3F600C1659C /* MixPlayerTableViewCell.swift */; };
 		F993C8886EBA39435F262FE3 /* Pods_Baby_SleeperTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BDC9B6894D3F927F29B5B3E0 /* Pods_Baby_SleeperTests.framework */; };
@@ -172,6 +173,8 @@
 		B767783A2897E907006D7D94 /* Mother Heartbeat.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Mother Heartbeat.mp3"; sourceTree = "<group>"; };
 		B767783B2897E907006D7D94 /* Night Crickets.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Night Crickets.mp3"; sourceTree = "<group>"; };
 		B767783C2897E907006D7D94 /* Stew.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Stew.mp3; sourceTree = "<group>"; };
+		B77B6455289EAC4E00403879 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		B77B6459289EB8A500403879 /* Configuration.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = Configuration.storekit; sourceTree = "<group>"; };
 		B780F913289AF1B600C1659C /* MixPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MixPlayerViewController.swift; sourceTree = "<group>"; };
 		B780F916289AF3F600C1659C /* MixPlayerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MixPlayerTableViewCell.swift; sourceTree = "<group>"; };
 		BDC9B6894D3F927F29B5B3E0 /* Pods_Baby_SleeperTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Baby_SleeperTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -183,6 +186,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A98779990B3B86EA92DC7069 /* Pods_Baby_Sleeper.framework in Frameworks */,
+				B77B6456289EAC4E00403879 /* StoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -247,6 +251,7 @@
 				B7060B1E28944F0600FF042D /* SceneDelegate.swift */,
 				B7060B2028944F0600FF042D /* ViewController.swift */,
 				B720D0B5289853DD004B2715 /* RemoveViewController.swift */,
+				B77B6459289EB8A500403879 /* Configuration.storekit */,
 				B780F915289AF28600C1659C /* MixPlayerView */,
 				B75447A3289725B1009488E4 /* Timer */,
 				B765A91A28955B700009BC1C /* MixesViewController */,
@@ -378,6 +383,7 @@
 		B77660A6289D1A8400A86D6C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B77B6455289EAC4E00403879 /* StoreKit.framework */,
 				8A063A130F4ABCE80BE16938 /* Pods_Baby_Sleeper.framework */,
 				0C416C83DD47A464524A5579 /* Pods_Baby_Sleeper_Baby_SleeperUITests.framework */,
 				BDC9B6894D3F927F29B5B3E0 /* Pods_Baby_SleeperTests.framework */,
@@ -871,7 +877,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = PCV3VLUN64;
+				DEVELOPMENT_TEAM = CDLRAYVNZ9;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Baby Sleeper/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = babysleeper;
@@ -886,7 +892,7 @@
 				);
 				MARKETING_VERSION = 1.0;
 				NEW_SETTING = "";
-				PRODUCT_BUNDLE_IDENTIFIER = com.babysleepertre;
+				PRODUCT_BUNDLE_IDENTIFIER = com.SIX11.babysleeperproo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -904,7 +910,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = PCV3VLUN64;
+				DEVELOPMENT_TEAM = CDLRAYVNZ9;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Baby Sleeper/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = babysleeper;
@@ -919,7 +925,7 @@
 				);
 				MARKETING_VERSION = 1.0;
 				NEW_SETTING = "";
-				PRODUCT_BUNDLE_IDENTIFIER = com.babysleepertre;
+				PRODUCT_BUNDLE_IDENTIFIER = com.SIX11.babysleeperproo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;

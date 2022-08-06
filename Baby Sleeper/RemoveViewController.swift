@@ -21,10 +21,15 @@ class RemoveViewController: UIViewController {
     
     var models = [SKProduct]()
     enum Products : String,CaseIterable{
-        case removeAds = "com.SIX11.learnABC.removeAds"
+        case mounthlyPro = "com.temporary.id"
+        case lifeTimePro = "com.temporary.idd"
+        case yearlyPro = "com.temporary.iddd"
+
+
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        SKPaymentQueue.default().add(self)
 
 setupUi()
         // Do any additional setup after loading the view.
@@ -77,7 +82,8 @@ setupUi()
     }
     @objc func topLeftViewTapped (){
         if SKPaymentQueue.canMakePayments(){
-            let set :  Set<String> = [Products.removeAds.rawValue]
+            let set :  Set<String> = [Products.mounthlyPro.rawValue]
+            print(set)
             let productRequest = SKProductsRequest(productIdentifiers: set)
             productRequest.delegate = self
             productRequest.start()
@@ -85,19 +91,54 @@ setupUi()
         }
     }
     @objc func topRightViewTapped (){
-       
+        if SKPaymentQueue.canMakePayments(){
+            let set :  Set<String> = [Products.mounthlyPro.rawValue]
+            print(set)
+            let productRequest = SKProductsRequest(productIdentifiers: set)
+            productRequest.delegate = self
+            productRequest.start()
+            
+        }
     }
     @objc func midLeftViewTapped (){
-       
+        if SKPaymentQueue.canMakePayments(){
+            let set :  Set<String> = [Products.yearlyPro.rawValue]
+            print(set)
+            let productRequest = SKProductsRequest(productIdentifiers: set)
+            productRequest.delegate = self
+            productRequest.start()
+            
+        }
     }
     @objc func midRightViewTapped (){
-       
+        if SKPaymentQueue.canMakePayments(){
+            let set :  Set<String> = [Products.yearlyPro.rawValue]
+            print(set)
+            let productRequest = SKProductsRequest(productIdentifiers: set)
+            productRequest.delegate = self
+            productRequest.start()
+            
+        }
     }
     @objc func bottomLeftViewTapped (){
-       
+        if SKPaymentQueue.canMakePayments(){
+            let set :  Set<String> = [Products.lifeTimePro.rawValue]
+            print(set)
+            let productRequest = SKProductsRequest(productIdentifiers: set)
+            productRequest.delegate = self
+            productRequest.start()
+            
+        }
     }
     @objc func bottomRightViewTapped (){
-       
+        if SKPaymentQueue.canMakePayments(){
+            let set :  Set<String> = [Products.lifeTimePro.rawValue]
+            print(set)
+            let productRequest = SKProductsRequest(productIdentifiers: set)
+            productRequest.delegate = self
+            productRequest.start()
+            
+        }
     }
    
     
