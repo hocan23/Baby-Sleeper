@@ -63,11 +63,14 @@ extension UIView{
 
 class Utils{
     
-    static var fullScreenAdId = "ca-app-pub-3940256099942544/44114689"
-    static var  bannerId = "ca-app-pub-3940256099942544/29347357"
+    static var fullScreenAdId = "ca-app-pub-1501030234998564/9882078815"
+    static var  bannerId = "ca-app-pub-1501030234998564/3508242153"
     static var isPremium = ""
     static var listMusic :[BabyAudio]?
     static var timerCount = 0
+    static var timerRemainCount = 0
+    static var addTimer = 0
+
     static func setToMusicList(type:[BabyAudio]){
         Utils.listMusic = type
     }
@@ -92,6 +95,7 @@ class Utils{
         return array
 
     }
+   
     static func saveLocal (array:String, key : String){
         let defaults = UserDefaults.standard
         defaults.set(array, forKey: key)
@@ -110,7 +114,36 @@ class Utils{
         let myarray = defaults.stringArray(forKey: "list") ?? [String]()
         return myarray
     }
+    static func getStringToDateReferanslar(dateStr:String) -> Date {
+        var retDate = Date()
+        
+        let dateFormatterGet = DateFormatter()
+        dateFormatterGet.dateFormat = "yyyy-MM-dd"
+        let dateSplit = dateStr.split(separator: "-")
+        let date = dateFormatterGet.date(from: String(dateSplit[0]))
+        let dateFormatter = DateFormatter()
+        let editDateStr = dateFormatter.string(from: date!)
+        retDate = dateFormatterGet.date(from: editDateStr) ?? Date()
+        
+        return retDate
+    }
     
+    static func dateFormatforHolidays(dateStr:Date) -> String{
+        let formatter = DateFormatter()
+        // initially set the format based on your datepicker date / server String
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+
+        let myString = formatter.string(from: Date()) // string purpose I add here
+        // convert your string to date
+        let yourDate = formatter.date(from: myString)
+        //then again set the date format whhich type of output you need
+        formatter.dateFormat = "yyyy-MM-dd"
+        // again convert your date to string
+        let myStringDate = formatter.string(from: yourDate!)
+        
+        return myStringDate
+        
+    }
     static var allSounds : [BabyAudio] = [
         BabyAudio(musicName: "White Noise", musicImage: "White Noise", musicVolume: 1, isPremium: false, isSelected: false),
         BabyAudio(musicName: "Pink Noise", musicImage: "Pink Noise", musicVolume: 1, isPremium: false, isSelected: false),
@@ -172,7 +205,30 @@ class Utils{
     
 }
 
+class MyGlobalTimer: NSObject {
 
+    let sharedTimer: MyGlobalTimer = MyGlobalTimer()
+    var internalTimer: Timer?
+
+    func startTimer(){
+        guard self.internalTimer != nil else {
+            fatalError("Timer already intialized, how did we get here with a singleton?!")
+        }
+        self.internalTimer = Timer.scheduledTimer(timeInterval: 1.0 /*seconds*/, target: self, selector: #selector(fireTimerAction), userInfo: nil, repeats: true)
+    }
+
+    func stopTimer(){
+        guard self.internalTimer != nil else {
+            fatalError("No timer active, start the timer before you stop it.")
+        }
+        self.internalTimer?.invalidate()
+    }
+
+    @objc func fireTimerAction(sender: AnyObject?){
+        debugPrint("Timer Fired! \(sender)")
+    }
+
+}
 
 class GSAudio: NSObject, AVAudioPlayerDelegate {
     

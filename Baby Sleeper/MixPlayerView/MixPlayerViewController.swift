@@ -70,7 +70,7 @@ class MixPlayerViewController: UIViewController {
 }
 extension MixPlayerViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        playlistlocale?.count ?? 0
+        playlist.count ?? 0
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MixCell", for: indexPath) as! MixPlayerTableViewCell
@@ -100,6 +100,26 @@ extension MixPlayerViewController: UITableViewDelegate, UITableViewDataSource {
         cell.selectionStyle = .default;
         cell.selectionStyle = .none
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        return .delete
+    }
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            tableView.beginUpdates()
+            
+            playlist.remove(at: indexPath.row)
+            playlistlocale?.remove(at: indexPath.row)
+            print(playlist)
+            print(playlistlocale)
+            Utils.saveLocalList(array: playlistlocale ?? [], key: "list")
+
+            tableView.deleteRows(at:[indexPath] , with: .fade)
+            tableView.endUpdates()
+        } else if editingStyle == .insert {
+            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
+        }
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 100

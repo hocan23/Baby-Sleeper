@@ -11,18 +11,22 @@ import GoogleMobileAds
 
 class PlayerViewController: UIViewController ,AVAudioPlayerDelegate,TimerStartProtocol  {
     
+    @IBOutlet weak var setViewHeightConstraint: NSLayoutConstraint!
     var player : AVAudioPlayer?
     var currentPlayList  : [BabyAudio] = []
     var allSounds = Utils.allSounds
     var allMusics = Utils.allMusics
     var vcType : String?
     var timerCount:Int = 0
+    var timerAddCount = 10
     var bannerView: GADBannerView!
     var isAd = false
     var timerss : Timer = Timer()
+    var timerAdd : Timer = Timer()
     private var interstitial: GADInterstitialAd?
     @IBOutlet weak var timerLabel: UILabel!
     
+    @IBOutlet weak var bottomStackBottomConstat: NSLayoutConstraint!
     
     @IBOutlet weak var mixImage: UIImageView!
     @IBOutlet weak var playImage: UIImageView!
@@ -31,11 +35,14 @@ class PlayerViewController: UIViewController ,AVAudioPlayerDelegate,TimerStartPr
     @IBOutlet weak var myMixesLabel: UILabel!
     @IBOutlet weak var playerCollection: UICollectionView!
     var isPlay = false
-    let insets = UIEdgeInsets(top: 10, left: 15, bottom: 60, right: 15)
-    let spacing = CGSize(width: 5, height: 10)
+    
+        var insets = UIEdgeInsets(top: 10, left: 15, bottom: 60, right: 15)
+        var spacing = CGSize(width: 5, height: 10)
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        print( Utils.listMusic )
+        timerAdd = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(addCounterr), userInfo: nil, repeats: true)
         playerCollection.dataSource = self
         playerCollection.delegate = self
         setupUi()
@@ -46,7 +53,10 @@ class PlayerViewController: UIViewController ,AVAudioPlayerDelegate,TimerStartPr
             isPlay = true
         }
         view.overrideUserInterfaceStyle = .light
-        
+        if UIDevice.current.userInterfaceIdiom == .pad  {
+            insets = UIEdgeInsets(top: 10, left: 30, bottom: 60, right: 30)
+            spacing = CGSize(width: 30, height: 30)
+        }
     }
     override func viewDidDisappear(_ animated: Bool) {
         if currentPlayList.isEmpty == false{
@@ -55,47 +65,30 @@ class PlayerViewController: UIViewController ,AVAudioPlayerDelegate,TimerStartPr
         }
     }
     func timerStart(time: Int) {
-        timerCount = 15
+        timerCount = time
         timerss.invalidate()
+        if Utils.timerRemainCount == 0{
+            timerLabel.isHidden=true
+        }else{
         timerss = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timerCounterr), userInfo: nil, repeats: true)
+        }
         
         
         
-        
-        
-//        Timer.scheduledTimer(withTimeInterval: TimeInterval(time), repeats: false) { (t) in
-//            GSAudio.sharedInstance.stopSounds(soundFiles: Utils.listMusic ?? [])
-//            self.playImage.image = UIImage(named: "play")
-//            self.timerLabel.isHidden = true
-//
-//            print("time")
-//        }
-
-//        timerCount = time
-//        Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
-//            print(timer)
-//            self.timerCount -= 1
-//            if self.timerCount == 0 {
-//                print("Go!")
-//                GSAudio.sharedInstance.stopSounds(soundFiles: Utils.listMusic ?? [])
-//                           self.playImage.image = UIImage(named: "play")
-//                           self.timerLabel.isHidden = true
-//                timer.invalidate()
-//
-//            } else {
-//                    self.timerLabel.isHidden = false
-//
-//                print(self.timer)
-//                let watch = StopWatch(totalSeconds: self.timerCount)
-//                print(watch.simpleTimeString)
-//                let currentTime = watch.simpleTimeString
-//
-//                                //self.dataLabel.setNeedsDisplay()
-//                    self.timerLabel.text = "\(currentTime)"
-//
-//            }
-//        }
+ 
     }
+    @objc func addCounterr(){
+        self.timerAddCount -= 1
+        if self.timerAddCount == 0 {
+            
+            timerss.invalidate()
+          
+        }
+        
+    }
+    
+    
+    
     @objc func timerCounterr(){
         self.timerCount -= 1
         if self.timerCount == 0 {
@@ -105,6 +98,8 @@ class PlayerViewController: UIViewController ,AVAudioPlayerDelegate,TimerStartPr
             isPlay=false
                        self.playImage.image = UIImage(named: "play")
                        self.timerLabel.isHidden = true
+            Utils.listMusic = nil
+            Utils.timerRemainCount = 0
             timerss.invalidate()
           
         } else {
@@ -145,11 +140,15 @@ class PlayerViewController: UIViewController ,AVAudioPlayerDelegate,TimerStartPr
     }
     override func viewWillAppear(_ animated: Bool) {
         if isAd == true {
+            GSAudio.sharedInstance.playSounds(soundFiles: Utils.listMusic ?? [])
+
             self.dismiss(animated: true)
             
         }
         if Utils.isPremium == "premium"{
-            
+            setViewHeightConstraint.constant = 100
+            bottomStackBottomConstat.constant = 49
+
         }else{
             createAdd()
             
@@ -175,6 +174,7 @@ class PlayerViewController: UIViewController ,AVAudioPlayerDelegate,TimerStartPr
         timer.zoomIn()
         let destinationVC = storyboard?.instantiateViewController(withIdentifier: "TimerViewController") as! TimerViewController
         destinationVC.delegate = self
+        destinationVC.timerCount = timerCount
         destinationVC.modalPresentationStyle = .formSheet
         self.present(destinationVC, animated: true, completion: nil)
         
@@ -182,12 +182,7 @@ class PlayerViewController: UIViewController ,AVAudioPlayerDelegate,TimerStartPr
     @objc func playImageTapped (){
         playImage.zoomIn()
         print(currentPlayList.count)
-        if Utils.listMusic != nil{
-            print(Utils.listMusic)
-            GSAudio.sharedInstance.stopSounds(soundFiles: Utils.listMusic!)
-            
-            playImage.image = UIImage(named: "play")
-        }
+       
         if isPlay == false{
             playImage.image = UIImage(named: "pause")
             GSAudio.sharedInstance.playSounds(soundFiles: currentPlayList)
@@ -199,7 +194,12 @@ class PlayerViewController: UIViewController ,AVAudioPlayerDelegate,TimerStartPr
             playImage.image = UIImage(named: "play")
             isPlay = false
         }
-        
+        if Utils.listMusic != nil && currentPlayList.count == 0{
+            print(Utils.listMusic)
+            GSAudio.sharedInstance.stopSounds(soundFiles: Utils.listMusic!)
+            isPlay = false
+            playImage.image = UIImage(named: "play")
+        }
         
         
     }
@@ -279,12 +279,20 @@ class PlayerViewController: UIViewController ,AVAudioPlayerDelegate,TimerStartPr
     
     @IBAction func homePressed(_ sender: UIButton) {
         
-        if interstitial != nil {
+        if interstitial != nil && currentPlayList.isEmpty == true {
+            if isPlay == true{
+                GSAudio.sharedInstance.stopSounds(soundFiles: Utils.listMusic ?? [])
+
+            }
+
             interstitial?.present(fromRootViewController: self)
             isAd = true
         } else {
             print("Ad wasn't ready")
-            self.dismiss(animated: true)
+            let destinationVC = storyboard?.instantiateViewController(withIdentifier: "ViewController") as! ViewController
+
+            destinationVC.modalPresentationStyle = .fullScreen
+            self.present(destinationVC, animated: true, completion: nil)
         }
     }
 }
@@ -303,8 +311,13 @@ extension PlayerViewController :  UICollectionViewDelegate, UICollectionViewData
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = playerCollection.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! PlayerCollectionViewCell
+        if UIDevice.current.userInterfaceIdiom == .pad  {
+
+        cell.labelMusic.font = cell.labelMusic.font.withSize(view.frame.height*0.017)
+        }
         if vcType == "sound"{
             cell.layer.cornerRadius = 20
+            
             cell.imageView.image = UIImage(named: allSounds[indexPath.row].musicImage)
             cell.labelMusic.text = allSounds[indexPath.row].musicName
             if allSounds[indexPath.row].isPremium == true{
@@ -352,8 +365,32 @@ extension PlayerViewController :  UICollectionViewDelegate, UICollectionViewData
         GSAudio.sharedInstance.stopSounds(soundFiles: Utils.listMusic ?? [])
         
         if vcType == "sound"{
+            
+            
+        
+            
             if allSounds[indexPath.row].isPremium == true{
                 
+                if timerAddCount == 0{
+                if interstitial != nil && currentPlayList.isEmpty == true {
+                    if isPlay == true{
+                        GSAudio.sharedInstance.stopSounds(soundFiles: Utils.listMusic ?? [])
+
+                    }
+
+                    interstitial?.present(fromRootViewController: self)
+                    isAd = true
+                } else {
+                    print("Ad wasn't ready")
+                    self.dismiss(animated: true)
+                }
+            }
+                
+                let destinationVC = storyboard?.instantiateViewController(withIdentifier: "RemoveViewController") as! RemoveViewController
+                destinationVC.isComeFromPlayer = vcType!
+
+                destinationVC.modalPresentationStyle = .fullScreen
+                self.present(destinationVC, animated: true, completion: nil)
             }else{
                 if allSounds[indexPath.row].isSelected == false{
                     allSounds[indexPath.row].isSelected = true
@@ -398,6 +435,27 @@ extension PlayerViewController :  UICollectionViewDelegate, UICollectionViewData
         }else{
             if allMusics[indexPath.row].isPremium == true{
                 
+                if timerAddCount == 0{
+                if interstitial != nil && currentPlayList.isEmpty == true {
+                    if isPlay == true{
+                        GSAudio.sharedInstance.stopSounds(soundFiles: Utils.listMusic ?? [])
+
+                    }
+
+                    interstitial?.present(fromRootViewController: self)
+                    isAd = true
+                } else {
+                    print("Ad wasn't ready")
+                    self.dismiss(animated: true)
+                }
+            }
+                
+                
+                
+                let destinationVC = storyboard?.instantiateViewController(withIdentifier: "RemoveViewController") as! RemoveViewController
+                destinationVC.isComeFromPlayer = vcType!
+                destinationVC.modalPresentationStyle = .fullScreen
+                self.present(destinationVC, animated: true, completion: nil)
             }else{
                 GSAudio.sharedInstance.stopSounds(soundFiles: currentPlayList)
                 playImage.image = UIImage(named: "play")
@@ -461,7 +519,7 @@ extension PlayerViewController :  UICollectionViewDelegate, UICollectionViewData
         
         if UIDevice.current.userInterfaceIdiom == .pad  {
             
-            let numberOfVisibleCellHorizontal: CGFloat = 5
+            let numberOfVisibleCellHorizontal: CGFloat = 4
             let horizontalOtherValues = insets.right + insets.left + (spacing.width * numberOfVisibleCellHorizontal)
             let width = (collectionView.bounds.width - horizontalOtherValues) / numberOfVisibleCellHorizontal
             

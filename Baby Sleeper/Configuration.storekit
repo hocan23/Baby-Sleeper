@@ -20,7 +20,7 @@
           "locale" : "ar"
         }
       ],
-      "productID" : "com.temporary.idd",
+      "productID" : "com.SIX11.babySleeperLifeTime",
       "referenceName" : "lifetime",
       "type" : "NonConsumable"
     }
@@ -55,7 +55,7 @@
               "locale" : "en_US"
             }
           ],
-          "productID" : "com.temporary.id",
+          "productID" : "com.SIX11.babySlepper1month",
           "recurringSubscriptionPeriod" : "P1M",
           "referenceName" : "mountly",
           "subscriptionGroupID" : "3A82AE9D",
@@ -80,7 +80,7 @@
               "locale" : "en_US"
             }
           ],
-          "productID" : "com.temporary.iddd",
+          "productID" : "com.SIX11.babySleeper1year",
           "recurringSubscriptionPeriod" : "P1Y",
           "referenceName" : "yearly",
           "subscriptionGroupID" : "3A82AE9D",

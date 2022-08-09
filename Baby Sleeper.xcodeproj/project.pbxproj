@@ -32,7 +32,7 @@
 		B76778102897E0BE006D7D94 /* Soul.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B76778012897E0BD006D7D94 /* Soul.mp3 */; };
 		B76778112897E0BE006D7D94 /* Sky.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B76778022897E0BD006D7D94 /* Sky.mp3 */; };
 		B76778122897E0BE006D7D94 /* Far Away.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B76778032897E0BD006D7D94 /* Far Away.mp3 */; };
-		B76778132897E0BE006D7D94 /* Stars.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B76778042897E0BD006D7D94 /* Stars.mp3 */; };
+		B76778132897E0BE006D7D94 /* Star.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B76778042897E0BD006D7D94 /* Star.mp3 */; };
 		B76778142897E0BE006D7D94 /* Relax.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B76778052897E0BE006D7D94 /* Relax.mp3 */; };
 		B76778152897E0BE006D7D94 /* Rainbow.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B76778062897E0BE006D7D94 /* Rainbow.mp3 */; };
 		B76778162897E0BE006D7D94 /* Life.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B76778072897E0BE006D7D94 /* Life.mp3 */; };
@@ -132,7 +132,7 @@
 		B76778012897E0BD006D7D94 /* Soul.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Soul.mp3; sourceTree = "<group>"; };
 		B76778022897E0BD006D7D94 /* Sky.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Sky.mp3; sourceTree = "<group>"; };
 		B76778032897E0BD006D7D94 /* Far Away.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Far Away.mp3"; sourceTree = "<group>"; };
-		B76778042897E0BD006D7D94 /* Stars.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Stars.mp3; sourceTree = "<group>"; };
+		B76778042897E0BD006D7D94 /* Star.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Star.mp3; sourceTree = "<group>"; };
 		B76778052897E0BE006D7D94 /* Relax.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Relax.mp3; sourceTree = "<group>"; };
 		B76778062897E0BE006D7D94 /* Rainbow.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Rainbow.mp3; sourceTree = "<group>"; };
 		B76778072897E0BE006D7D94 /* Life.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Life.mp3; sourceTree = "<group>"; };
@@ -338,7 +338,7 @@
 				B76778082897E0BE006D7D94 /* Silence.mp3 */,
 				B76778022897E0BD006D7D94 /* Sky.mp3 */,
 				B76778012897E0BD006D7D94 /* Soul.mp3 */,
-				B76778042897E0BD006D7D94 /* Stars.mp3 */,
+				B76778042897E0BD006D7D94 /* Star.mp3 */,
 			);
 			path = Musics;
 			sourceTree = "<group>";
@@ -511,7 +511,7 @@
 			files = (
 				B76778492897E907006D7D94 /* Shush.mp3 in Resources */,
 				B76778592897E907006D7D94 /* Night Crickets.mp3 in Resources */,
-				B76778132897E0BE006D7D94 /* Stars.mp3 in Resources */,
+				B76778132897E0BE006D7D94 /* Star.mp3 in Resources */,
 				B76778162897E0BE006D7D94 /* Life.mp3 in Resources */,
 				B76778582897E907006D7D94 /* Mother Heartbeat.mp3 in Resources */,
 				B767780F2897E0BE006D7D94 /* Infinity.mp3 in Resources */,
@@ -925,7 +925,7 @@
 				);
 				MARKETING_VERSION = 1.0;
 				NEW_SETTING = "";
-				PRODUCT_BUNDLE_IDENTIFIER = com.SIX11.babysleeperproo;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.SIX11.com.SIX11.baby-sleeper-pro";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
