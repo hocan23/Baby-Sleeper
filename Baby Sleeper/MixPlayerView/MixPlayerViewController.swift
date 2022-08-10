@@ -66,7 +66,12 @@ class MixPlayerViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        get {
+            return .portrait
 
+        }
+    }
 }
 extension MixPlayerViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

@@ -42,6 +42,12 @@ class MixViewController: UIViewController ,AVAudioPlayerDelegate  {
             bannerView.delegate = self
         }
     }
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        get {
+            return .portrait
+
+        }
+    }
     func alert (){
         let alertController = UIAlertController(title: "Mixes Name?", message: "", preferredStyle: .alert)
 

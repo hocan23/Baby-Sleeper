@@ -33,6 +33,12 @@ class TimerViewController: UIViewController {
         remainTimeLabel.isHidden = true
         view.overrideUserInterfaceStyle = .light
     }
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        get {
+            return .portrait
+
+        }
+    }
     override func viewDidDisappear(_ animated: Bool) {
         Utils.timerCount = time ?? 0
     }

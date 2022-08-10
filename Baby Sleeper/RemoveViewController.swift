@@ -82,7 +82,7 @@ class RemoveViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         if isAd == true {
             GSAudio.sharedInstance.playSounds(soundFiles: Utils.listMusic ?? [])
-            Utils.addTimer = 60
+            Utils.addTimer = 40
             let destinationVC = storyboard?.instantiateViewController(withIdentifier: "ViewController") as! ViewController
             destinationVC.modalPresentationStyle = .overFullScreen
           
@@ -126,7 +126,12 @@ class RemoveViewController: UIViewController {
 //        }
 //        print(Utils.addTimer)
 //    }
-    
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        get {
+            return .portrait
+
+        }
+    }
     func setupUi(){
         leftRadius(view: topLeftView)
                 leftRadius(view: midLeftView)

@@ -152,6 +152,12 @@ class ViewController: UIViewController {
         view.overrideUserInterfaceStyle = .light
 
     }
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        get {
+            return .portrait
+
+        }
+    }
     func bottomRadius(view : UIView){
         view.clipsToBounds = true
             view.layer.cornerRadius = 20

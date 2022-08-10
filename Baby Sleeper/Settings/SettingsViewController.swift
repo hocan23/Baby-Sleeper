@@ -48,6 +48,7 @@ class SettingsViewController: UIViewController{
 
         tableView.delegate = self
         tableView.dataSource = self
+//        tableView.separatorColor = UIColor(red: 255, green: 255, blue: 255, alpha: 0.1)
         setupUi()
         //        homeView.isUserInteractionEnabled = true
         //        homeView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(exitTapped)))
@@ -61,7 +62,7 @@ class SettingsViewController: UIViewController{
     
     override func viewWillAppear(_ animated: Bool) {
         if isAd == true {
-            Utils.addTimer = 60
+            Utils.addTimer = 40
             self.dismiss(animated: true)
             
         }

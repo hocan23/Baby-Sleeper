@@ -129,7 +129,7 @@ class PlayerViewController: UIViewController ,AVAudioPlayerDelegate,TimerStartPr
     override func viewWillAppear(_ animated: Bool) {
         if isAd == true {
             GSAudio.sharedInstance.playSounds(soundFiles: Utils.listMusic ?? [])
-            Utils.addTimer = 60
+            Utils.addTimer = 40
             self.dismiss(animated: true)
             
         }
@@ -148,7 +148,12 @@ class PlayerViewController: UIViewController ,AVAudioPlayerDelegate,TimerStartPr
         }
         
     }
-    
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        get {
+            return .portrait
+
+        }
+    }
     @objc func myMixesLabelTapped (){
         myMixesLabel.zoomIn()
         let destinationVC = storyboard?.instantiateViewController(withIdentifier: "MixPlayerViewController") as! MixPlayerViewController
