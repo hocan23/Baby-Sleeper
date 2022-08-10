@@ -70,6 +70,7 @@ class Utils{
     static var timerCount = 0
     static var timerRemainCount = 0
     static var addTimer = 0
+    static var addShow = false
 
     static func setToMusicList(type:[BabyAudio]){
         Utils.listMusic = type

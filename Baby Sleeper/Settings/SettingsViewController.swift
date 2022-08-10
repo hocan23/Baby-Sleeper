@@ -44,6 +44,8 @@ class SettingsViewController: UIViewController{
     @IBOutlet weak var tabletopunlockCons: NSLayoutConstraint!
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.overrideUserInterfaceStyle = .light
+
         tableView.delegate = self
         tableView.dataSource = self
         setupUi()
@@ -58,8 +60,8 @@ class SettingsViewController: UIViewController{
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        view.overrideUserInterfaceStyle = .light
         if isAd == true {
+            Utils.addTimer = 60
             self.dismiss(animated: true)
             
         }
@@ -80,7 +82,7 @@ class SettingsViewController: UIViewController{
             removeLabell.isHidden = true
             getProImage.isHidden = true
             unlockLabel.isHidden = true
-            priceLabel.isHidden = true
+//            priceLabel.isHidden = true
         }else{
             createAdd()
             
@@ -122,6 +124,7 @@ class SettingsViewController: UIViewController{
     }
     @IBAction func homeButtonTapped(_ sender: UIButton) {
         homeButton.zoomIn()
+        if Utils.addTimer <= 0{
                 if interstitial != nil {
                     interstitial?.present(fromRootViewController: self)
                     isAd = true
@@ -130,18 +133,11 @@ class SettingsViewController: UIViewController{
                     self.dismiss(animated: true)
                 }
         
+        }else{
+            self.dismiss(animated: true)
+        }
+        
     }
-    //    @objc func exitTapped (){
-    
-    //        if interstitial != nil {
-    //            interstitial?.present(fromRootViewController: self)
-    //            isAd = true
-    //        } else {
-    //            print("Ad wasn't ready")
-    //            self.dismiss(animated: true)
-    //        }
-    //
-    //    }
     
 }
 extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {

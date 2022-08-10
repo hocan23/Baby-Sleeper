@@ -18,11 +18,9 @@ class PlayerViewController: UIViewController ,AVAudioPlayerDelegate,TimerStartPr
     var allMusics = Utils.allMusics
     var vcType : String?
     var timerCount:Int = 0
-    var timerAddCount = 10
     var bannerView: GADBannerView!
     var isAd = false
     var timerss : Timer = Timer()
-    var timerAdd : Timer = Timer()
     private var interstitial: GADInterstitialAd?
     @IBOutlet weak var timerLabel: UILabel!
     
@@ -42,7 +40,7 @@ class PlayerViewController: UIViewController ,AVAudioPlayerDelegate,TimerStartPr
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        timerAdd = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(addCounterr), userInfo: nil, repeats: true)
+        
         playerCollection.dataSource = self
         playerCollection.delegate = self
         setupUi()
@@ -77,20 +75,10 @@ class PlayerViewController: UIViewController ,AVAudioPlayerDelegate,TimerStartPr
         
  
     }
-    @objc func addCounterr(){
-        self.timerAddCount -= 1
-        if self.timerAddCount == 0 {
-            
-            timerss.invalidate()
-          
-        }
-        
-    }
-    
-    
-    
+
     @objc func timerCounterr(){
         self.timerCount -= 1
+        print(timerCount)
         if self.timerCount == 0 {
             print("Go!")
             print(Utils.listMusic)
@@ -141,7 +129,7 @@ class PlayerViewController: UIViewController ,AVAudioPlayerDelegate,TimerStartPr
     override func viewWillAppear(_ animated: Bool) {
         if isAd == true {
             GSAudio.sharedInstance.playSounds(soundFiles: Utils.listMusic ?? [])
-
+            Utils.addTimer = 60
             self.dismiss(animated: true)
             
         }
@@ -278,7 +266,7 @@ class PlayerViewController: UIViewController ,AVAudioPlayerDelegate,TimerStartPr
     }
     
     @IBAction func homePressed(_ sender: UIButton) {
-        
+        if Utils.addTimer <= 0{
         if interstitial != nil && currentPlayList.isEmpty == true {
             if isPlay == true{
                 GSAudio.sharedInstance.stopSounds(soundFiles: Utils.listMusic ?? [])
@@ -289,6 +277,12 @@ class PlayerViewController: UIViewController ,AVAudioPlayerDelegate,TimerStartPr
             isAd = true
         } else {
             print("Ad wasn't ready")
+            let destinationVC = storyboard?.instantiateViewController(withIdentifier: "ViewController") as! ViewController
+
+            destinationVC.modalPresentationStyle = .fullScreen
+            self.present(destinationVC, animated: true, completion: nil)
+        }
+        }else{
             let destinationVC = storyboard?.instantiateViewController(withIdentifier: "ViewController") as! ViewController
 
             destinationVC.modalPresentationStyle = .fullScreen
@@ -371,20 +365,20 @@ extension PlayerViewController :  UICollectionViewDelegate, UICollectionViewData
             
             if allSounds[indexPath.row].isPremium == true{
                 
-                if timerAddCount == 0{
-                if interstitial != nil && currentPlayList.isEmpty == true {
-                    if isPlay == true{
-                        GSAudio.sharedInstance.stopSounds(soundFiles: Utils.listMusic ?? [])
-
-                    }
-
-                    interstitial?.present(fromRootViewController: self)
-                    isAd = true
-                } else {
-                    print("Ad wasn't ready")
-                    self.dismiss(animated: true)
-                }
-            }
+             
+//                if interstitial != nil && currentPlayList.isEmpty == true {
+//                    if isPlay == true{
+//                        GSAudio.sharedInstance.stopSounds(soundFiles: Utils.listMusic ?? [])
+//
+//                    }
+//
+//                    interstitial?.present(fromRootViewController: self)
+//                    isAd = true
+//                } else {
+//                    print("Ad wasn't ready")
+//                    self.dismiss(animated: true)
+//                }
+            
                 
                 let destinationVC = storyboard?.instantiateViewController(withIdentifier: "RemoveViewController") as! RemoveViewController
                 destinationVC.isComeFromPlayer = vcType!
@@ -435,20 +429,20 @@ extension PlayerViewController :  UICollectionViewDelegate, UICollectionViewData
         }else{
             if allMusics[indexPath.row].isPremium == true{
                 
-                if timerAddCount == 0{
-                if interstitial != nil && currentPlayList.isEmpty == true {
-                    if isPlay == true{
-                        GSAudio.sharedInstance.stopSounds(soundFiles: Utils.listMusic ?? [])
-
-                    }
-
-                    interstitial?.present(fromRootViewController: self)
-                    isAd = true
-                } else {
-                    print("Ad wasn't ready")
-                    self.dismiss(animated: true)
-                }
-            }
+               
+//                if interstitial != nil && currentPlayList.isEmpty == true {
+//                    if isPlay == true{
+//                        GSAudio.sharedInstance.stopSounds(soundFiles: Utils.listMusic ?? [])
+//
+//                    }
+//
+//                    interstitial?.present(fromRootViewController: self)
+//                    isAd = true
+//                } else {
+//                    print("Ad wasn't ready")
+//                    self.dismiss(animated: true)
+//                }
+            
                 
                 
                 

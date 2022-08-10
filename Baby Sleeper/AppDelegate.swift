@@ -10,15 +10,23 @@ import GoogleMobileAds
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-
+    var timerAdd : Timer = Timer()
+    var timerAddCount = 10
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         GADMobileAds.sharedInstance().start(completionHandler: nil)
-       
+        timerAdd = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(addCounterr), userInfo: nil, repeats: true)
         // Override point for customization after application launch.
         return true
     }
-
+    @objc func addCounterr(){
+        Utils.addTimer -= 1
+        if Utils.addTimer == 0 {
+            Utils.addShow = true
+          
+        }
+        print(Utils.addTimer)
+    }
     // MARK: UISceneSession Lifecycle
 
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {

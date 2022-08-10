@@ -47,6 +47,9 @@ class RemoveViewController: UIViewController {
     var isComeFromPlayer = ""
     private var interstitial: GADInterstitialAd?
     var models = [SKProduct]()
+//    var timerAdd : Timer = Timer()
+//    var timerAddCount = 10
+
     enum Products : String,CaseIterable{
         case mounthlyPro = "com.SIX11.babySlepper1month"
         case lifeTimePro = "com.SIX11.babySleeperLifeTime"
@@ -56,7 +59,8 @@ class RemoveViewController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-  
+//        timerAdd.invalidate()
+//        timerAdd = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(addCounterr), userInfo: nil, repeats: true)
         Utils.isPremium = Utils.readLocal(key: "purchase")
         SKPaymentQueue.default().add(self)
         setupUi()
@@ -78,7 +82,7 @@ class RemoveViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         if isAd == true {
             GSAudio.sharedInstance.playSounds(soundFiles: Utils.listMusic ?? [])
-
+            Utils.addTimer = 60
             let destinationVC = storyboard?.instantiateViewController(withIdentifier: "ViewController") as! ViewController
             destinationVC.modalPresentationStyle = .overFullScreen
           
@@ -112,8 +116,16 @@ class RemoveViewController: UIViewController {
             getProWidth.constant = view.frame.height*0.13
             getProHeight.constant = view.frame.height*0.13
         }
+      
     }
-    
+//    @objc func addCounterr(){
+//        Utils.addTimer -= 1
+//        if Utils.addTimer == 0 {
+//            Utils.addShow = true
+//
+//        }
+//        print(Utils.addTimer)
+//    }
     
     func setupUi(){
         leftRadius(view: topLeftView)
@@ -170,7 +182,7 @@ class RemoveViewController: UIViewController {
         view.layer.maskedCorners = [ .layerMaxXMaxYCorner, .layerMaxXMinYCorner]
     }
     @objc func privacyTapped (){
-        guard let url = URL(string: "https://sites.google.com/view/baby-sleep-sounds-privacy/home") else { return }
+        guard let url = URL(string: "https://sites.google.com/view/baby-sleep-sounds-terms-of-con/home") else { return }
         UIApplication.shared.open(url)
     
         }
@@ -252,12 +264,10 @@ class RemoveViewController: UIViewController {
     
     @IBAction func backBtnTapped(_ sender: UIButton) {
 //        GSAudio.sharedInstance.playSounds(soundFiles: Utils.listMusic ?? [])
+        
+        if Utils.addTimer <= 0{
         if interstitial != nil  {
-           
                 GSAudio.sharedInstance.stopSounds(soundFiles: Utils.listMusic ?? [])
-
-            
-
             interstitial?.present(fromRootViewController: self)
             isAd = true
         } else {
@@ -275,8 +285,13 @@ class RemoveViewController: UIViewController {
           
             self.present(destinationVC, animated: true, completion: nil)
         }
+    }else{
+        let destinationVC = storyboard?.instantiateViewController(withIdentifier: "ViewController") as! ViewController
+        destinationVC.modalPresentationStyle = .fullScreen
+      
+        self.present(destinationVC, animated: true, completion: nil)
     }
-    
+    }
 }
 extension RemoveViewController: SKProductsRequestDelegate, SKPaymentTransactionObserver{
     
@@ -307,7 +322,9 @@ extension RemoveViewController: SKProductsRequestDelegate, SKPaymentTransactionO
                 let nextMonth = Calendar.current.date(byAdding: .month, value: 1, to: Date())
                 
                 Utils.saveLocal(array:  "\(nextMonth)", key: "nextMounth")
-               
+                let destinationVC = storyboard?.instantiateViewController(withIdentifier: "ViewController") as! ViewController
+                destinationVC.modalPresentationStyle = .fullScreen
+                self.present(destinationVC, animated: true, completion: nil)
             case .failed:
                 SKPaymentQueue.default().finishTransaction(transaction)
                 Utils.saveLocal(array: "notPremium", key: "purchase")

@@ -134,7 +134,6 @@ class ViewController: UIViewController {
         removeLabell.font = bottomRightLabel.font.withSize(view.frame.height*0.022)
         getProHeightWidth.constant = view.frame.height*0.1
         getProWidthCons.constant = view.frame.height*0.1
-
         if UIDevice.current.userInterfaceIdiom == .pad  {
             topStackLeading.constant = 90
             topStackTrailing.constant = 90
