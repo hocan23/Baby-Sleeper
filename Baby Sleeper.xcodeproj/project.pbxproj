@@ -250,7 +250,7 @@
 				B7060B1C28944F0600FF042D /* AppDelegate.swift */,
 				B7060B1E28944F0600FF042D /* SceneDelegate.swift */,
 				B7060B2028944F0600FF042D /* ViewController.swift */,
-				B720D0B5289853DD004B2715 /* RemoveViewController.swift */,
+				B7E62F3D28A57F430013349C /* SubscriptionView */,
 				B77B6459289EB8A500403879 /* Configuration.storekit */,
 				B780F915289AF28600C1659C /* MixPlayerView */,
 				B75447A3289725B1009488E4 /* Timer */,
@@ -398,6 +398,14 @@
 				B780F916289AF3F600C1659C /* MixPlayerTableViewCell.swift */,
 			);
 			path = MixPlayerView;
+			sourceTree = "<group>";
+		};
+		B7E62F3D28A57F430013349C /* SubscriptionView */ = {
+			isa = PBXGroup;
+			children = (
+				B720D0B5289853DD004B2715 /* RemoveViewController.swift */,
+			);
+			path = SubscriptionView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

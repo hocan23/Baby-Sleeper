@@ -10,15 +10,14 @@ protocol TimerStartProtocol{
     func timerStart(time:Int)
 }
 class TimerViewController: UIViewController {
-
-    @IBOutlet weak var pickerTime: UIPickerView!
     
+    @IBOutlet weak var pickerTime: UIPickerView!
     @IBOutlet weak var saveBtn: UIButton!
     @IBOutlet weak var exitBtn: UIButton!
     var delegate : TimerStartProtocol?
     var timerss : Timer = Timer()
     var timerCount:Int = 0
-
+    
     @IBOutlet weak var remainTimeLabel: UILabel!
     var hour:Int = 0
     var minutes:Int = 0
@@ -36,7 +35,7 @@ class TimerViewController: UIViewController {
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         get {
             return .portrait
-
+            
         }
     }
     
@@ -60,14 +59,14 @@ class TimerViewController: UIViewController {
         timerCount = time
         timerss.invalidate()
         if Utils.timerRemainCount == 0{
-//            timerLabel.isHidden=true
+            //            timerLabel.isHidden=true
         }else{
-        timerss = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timerCounterr), userInfo: nil, repeats: true)
+            timerss = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timerCounterr), userInfo: nil, repeats: true)
         }
         
         
         
- 
+        
     }
     @objc func timerCounterr(){
         self.timerCount -= 1
@@ -76,40 +75,40 @@ class TimerViewController: UIViewController {
             print("Go!")
             print(Utils.listMusic)
             GSAudio.sharedInstance.stopSounds(soundFiles: Utils.listMusic ?? [])
-           
-                       self.remainTimeLabel.isHidden = true
+            
+            self.remainTimeLabel.isHidden = true
             Utils.listMusic = nil
             Utils.timerRemainCount = 0
             timerss.invalidate()
-          
+            
         } else {
-                self.remainTimeLabel.isHidden = false
-//
+            self.remainTimeLabel.isHidden = false
+            //
             let watch = StopWatch(totalSeconds: self.timerCount)
             print(watch.simpleTimeString)
             let currentTime = watch.simpleTimeString
             
-                            //self.dataLabel.setNeedsDisplay()
-                self.remainTimeLabel.text = "\(currentTime)"
-                        
+            //self.dataLabel.setNeedsDisplay()
+            self.remainTimeLabel.text = "\(currentTime)"
+            
         }
-    
+        
     }
     @IBAction func saveTapped(_ sender: Any) {
         saveBtn.zoomIn()
         time = (minutes+hour*60)*60
         Utils.timerRemainCount = time ?? 0
-       
+        
         if Utils.timerRemainCount < 2{
             delegate?.timerStart(time: 0)
             timerss.invalidate()
             remainTimeLabel.isHidden = true
             saveBtn.setTitle("Start", for: .normal)
         }else{
-         
-        delegate?.timerStart(time: time ?? 0)
-       dismiss(animated: true)
-    }
+            
+            delegate?.timerStart(time: time ?? 0)
+            dismiss(animated: true)
+        }
     }
     @IBAction func exitTapped(_ sender: Any) {
         exitBtn.zoomIn()
@@ -117,15 +116,15 @@ class TimerViewController: UIViewController {
     }
     
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destination.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
 }
 extension TimerViewController:UIPickerViewDelegate,UIPickerViewDataSource {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -138,16 +137,16 @@ extension TimerViewController:UIPickerViewDelegate,UIPickerViewDataSource {
             return 60
         case 1:
             return 24
-
+            
         default:
             return 0
         }
     }
-
+    
     func pickerView(_ pickerView: UIPickerView, widthForComponent component: Int) -> CGFloat {
         return pickerView.frame.size.width/2
     }
-
+    
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         
         switch component {
@@ -156,19 +155,19 @@ extension TimerViewController:UIPickerViewDelegate,UIPickerViewDataSource {
             
         case 1:
             return "\(row) Minute"
-        
+            
         default:
             return ""
         }
     }
-   
+    
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         switch component {
         case 0:
             hour = row
         case 1:
             minutes = row
-        
+            
         default:
             break;
         }

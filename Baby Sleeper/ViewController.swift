@@ -9,7 +9,7 @@ import UIKit
 import GoogleMobileAds
 import FBSDKCoreKit
 class ViewController: UIViewController {
-
+    
     
     
     @IBOutlet weak var unlockLabel: UILabel!
@@ -79,11 +79,11 @@ class ViewController: UIViewController {
             removeAdView.image = UIImage(named: "proheader")
             removeAdView.contentMode = .scaleAspectFit
             removeAdView.isUserInteractionEnabled = false
-
+            
             removeLabell.isHidden = true
             getProImage.isHidden = true
             unlockLabel.isHidden = true
-
+            
             for b in 0...Utils.allMusics.count-1{
                 Utils.allMusics[b].isPremium = false
             }
@@ -92,7 +92,7 @@ class ViewController: UIViewController {
             }
         }else{
             createAdd()
-          
+            
             bannerView = GADBannerView(adSize: GADAdSizeBanner)
             bannerView.adUnitID = Utils.bannerId
             bannerView.rootViewController = self
@@ -100,7 +100,7 @@ class ViewController: UIViewController {
             bannerView.delegate = self
         }
     }
-  
+    
     func setupUi(){
         topLeftView.isUserInteractionEnabled = true
         topLeftView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(topLeftViewTapped)))
@@ -134,6 +134,7 @@ class ViewController: UIViewController {
         removeLabell.font = bottomRightLabel.font.withSize(view.frame.height*0.022)
         getProHeightWidth.constant = view.frame.height*0.1
         getProWidthCons.constant = view.frame.height*0.1
+        
         if UIDevice.current.userInterfaceIdiom == .pad  {
             topStackLeading.constant = 90
             topStackTrailing.constant = 90
@@ -150,12 +151,12 @@ class ViewController: UIViewController {
             removeBottomCons.constant = 40
         }
         view.overrideUserInterfaceStyle = .light
-
+        
     }
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         get {
             return .portrait
-
+            
         }
     }
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -167,7 +168,7 @@ class ViewController: UIViewController {
     }
     func bottomRadius(view : UIView){
         view.clipsToBounds = true
-            view.layer.cornerRadius = 20
+        view.layer.cornerRadius = 20
         view.layer.maskedCorners = [ .layerMaxXMaxYCorner, .layerMinXMaxYCorner]
     }
     @objc func topLeftViewTapped (){
@@ -187,7 +188,7 @@ class ViewController: UIViewController {
         let destinationVC = storyboard?.instantiateViewController(withIdentifier: "MixPlayerViewController") as! MixPlayerViewController
         destinationVC.modalPresentationStyle = .formSheet
         self.present(destinationVC, animated: true, completion: nil)
-    
+        
     }
     @objc func removeTapped (){
         let destinationVC = storyboard?.instantiateViewController(withIdentifier: "RemoveViewController") as! RemoveViewController

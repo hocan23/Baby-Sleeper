@@ -22,19 +22,19 @@ class MixPlayerViewController: UIViewController {
         table.delegate = self
         table.dataSource = self
         playlistlocale = Utils.readLocalList(key: "list")
-//        print(Utils.readLocale(key: inputName ?? ""))
+        //        print(Utils.readLocale(key: inputName ?? ""))
         if let playlistlocale = playlistlocale {
             for a in playlistlocale{
                 var b = Utils.readLocale(key: a )
                 playlist.append(b)
-
+                
             }
-        
-        print(playlist)
+            
+            print(playlist)
         }
         view.overrideUserInterfaceStyle = .light
-
-//        playlist = Utils.readLocale(key: inputName ?? ""
+        
+        //        playlist = Utils.readLocale(key: inputName ?? ""
         // Do any additional setup after loading the view.
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -42,7 +42,7 @@ class MixPlayerViewController: UIViewController {
             
         }else{
             createAdd()
-          
+            
             bannerView = GADBannerView(adSize: GADAdSizeBanner)
             bannerView.adUnitID = Utils.bannerId
             bannerView.rootViewController = self
@@ -53,19 +53,11 @@ class MixPlayerViewController: UIViewController {
     override func viewDidDisappear(_ animated: Bool) {
         if playlist.isEmpty == false{
             Utils.listMusic = playlist[selectNumber ?? 0]
-
+            
         }
-
+        
     }
-    /*
-    // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
     override var preferredStatusBarStyle: UIStatusBarStyle {
         if #available(iOS 13, *) {
             return .lightContent
@@ -76,7 +68,7 @@ class MixPlayerViewController: UIViewController {
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         get {
             return .portrait
-
+            
         }
     }
 }
@@ -95,7 +87,7 @@ extension MixPlayerViewController: UITableViewDelegate, UITableViewDataSource {
                 b+=1
             }else{
                 audioNames += ", \(a.musicName)"
-
+                
             }
         }
         if indexPath.row == selectNumber{
@@ -105,9 +97,9 @@ extension MixPlayerViewController: UITableViewDelegate, UITableViewDataSource {
         }
         if beforeSelectNumber == nil{
             cell.viewBack.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.35)
-
+            
         }
-       
+        
         cell.bottomLabel.text = audioNames
         cell.selectionStyle = .default;
         cell.selectionStyle = .none
@@ -126,7 +118,7 @@ extension MixPlayerViewController: UITableViewDelegate, UITableViewDataSource {
             print(playlist)
             print(playlistlocale)
             Utils.saveLocalList(array: playlistlocale ?? [], key: "list")
-
+            
             tableView.deleteRows(at:[indexPath] , with: .fade)
             tableView.endUpdates()
         } else if editingStyle == .insert {
@@ -144,19 +136,19 @@ extension MixPlayerViewController: UITableViewDelegate, UITableViewDataSource {
         print(beforeSelectNumber)
         print(selectNumber)
         if beforeSelectNumber != selectNumber{
-        for a in playlist[indexPath.row]{
-            GSAudio.sharedInstance.playSound(soundFileName: a.musicName, volume: a.musicVolume)
-
-        }
-        Utils.setToMusicList(type: playlist[indexPath.row])
-        print(Utils.listMusic)
+            for a in playlist[indexPath.row]{
+                GSAudio.sharedInstance.playSound(soundFileName: a.musicName, volume: a.musicVolume)
+                
+            }
+            Utils.setToMusicList(type: playlist[indexPath.row])
+            print(Utils.listMusic)
             beforeSelectNumber = indexPath.row
-
+            
         }else{
             beforeSelectNumber = nil
             tableView.reloadData()
         }
-
+        
         
     }
     
