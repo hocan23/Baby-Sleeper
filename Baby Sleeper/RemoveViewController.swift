@@ -17,11 +17,13 @@ class RemoveViewController: UIViewController {
     @IBOutlet weak var yearPriceLabel: UILabel!
     @IBOutlet weak var lfitimePriceLabel: UILabel!
     
+    @IBOutlet weak var privacyyLabel: UILabel!
     @IBOutlet weak var firstLineWidth: NSLayoutConstraint!
     @IBOutlet weak var getProWidth: NSLayoutConstraint!
     
     @IBOutlet weak var restoreTopCons: NSLayoutConstraint!
     @IBOutlet weak var getProHeight: NSLayoutConstraint!
+    @IBOutlet weak var bottomPrivacyTopCons: NSLayoutConstraint!
     
     @IBOutlet weak var babyImageHeight: NSLayoutConstraint!
     
@@ -87,14 +89,17 @@ class RemoveViewController: UIViewController {
                 = UIApplication.shared.windows.first?.safeAreaInsets.top
             {
                 scrollView.contentInset.top = -top
-            restoreTopCons.constant = 20+top
+            restoreTopCons.constant = 40+top
             }
         if let bottom
                 = UIApplication.shared.windows.first?.safeAreaInsets.bottom
             {
                 scrollView.contentInset.bottom = -bottom
             }
-    }
+        if #available(iOS 11, *) {
+            scrollView.contentInsetAdjustmentBehavior = .never
+            scrollView.bounces = false
+        }    }
     override func viewWillAppear(_ animated: Bool) {
         if isAd == true {
             GSAudio.sharedInstance.playSounds(soundFiles: Utils.listMusic ?? [])
@@ -123,8 +128,8 @@ class RemoveViewController: UIViewController {
         if UIDevice.current.userInterfaceIdiom == .pad  {
 ////            leftSidesWidth.constant = view.frame.width*0.6
             textView.font = textView.font!.withSize(view.frame.height*0.02)
-
-            scrollHeihgt.constant = view.frame.height*1.4
+            bottomPrivacyTopCons.constant = 70
+            scrollHeihgt.constant = view.frame.height*1.5
             textviewHeight.constant = 600
             firstLineHeight.constant = 130
             secondLineHeight.constant = 130
@@ -175,11 +180,14 @@ class RemoveViewController: UIViewController {
         bottomLeftView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(bottomLeftViewTapped)))
         bottomRightView.isUserInteractionEnabled = true
         bottomRightView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(bottomRightViewTapped)))
+        privacyyLabel.isUserInteractionEnabled = true
+        privacyyLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(privacyyAltTapped)))
         babyImage.clipsToBounds = true
             babyImage.layer.cornerRadius = 20
         babyImage.layer.maskedCorners = [ .layerMinXMaxYCorner, .layerMaxXMaxYCorner]
         view.overrideUserInterfaceStyle = .light
         privacyLabel.font = privacyLabel.font.withSize(view.frame.height*0.022)
+        privacyyLabel.font = privacyyLabel.font.withSize(view.frame.height*0.022)
         termsLabel.font = termsLabel.font.withSize(view.frame.height*0.022)
         unlockLabel.font = unlockLabel.font.withSize(view.frame.height*0.022)
         removeLabel.font = removeLabel.font.withSize(view.frame.height*0.022)
@@ -205,6 +213,12 @@ class RemoveViewController: UIViewController {
             view.layer.cornerRadius = 20
         view.layer.maskedCorners = [ .layerMaxXMaxYCorner, .layerMaxXMinYCorner]
     }
+    @objc func privacyyAltTapped (){
+        guard let url = URL(string: "https://termify.io/privacy-policy/1660214687") else { return }
+        UIApplication.shared.open(url)
+    
+        }
+    
     @objc func privacyTapped (){
         guard let url = URL(string: "https://termify.io/eula/1660213690") else { return }
         UIApplication.shared.open(url)
