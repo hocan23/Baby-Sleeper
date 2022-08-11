@@ -66,6 +66,13 @@ class MixPlayerViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        if #available(iOS 13, *) {
+            return .lightContent
+        } else {
+            return .default
+        }
+    }
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         get {
             return .portrait

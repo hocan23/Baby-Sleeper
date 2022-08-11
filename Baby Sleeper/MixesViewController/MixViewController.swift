@@ -48,6 +48,13 @@ class MixViewController: UIViewController ,AVAudioPlayerDelegate  {
 
         }
     }
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        if #available(iOS 13, *) {
+            return .lightContent
+        } else {
+            return .default
+        }
+    }
     func alert (){
         let alertController = UIAlertController(title: "Mixes Name?", message: "", preferredStyle: .alert)
 

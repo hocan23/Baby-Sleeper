@@ -95,16 +95,20 @@ class SettingsViewController: UIViewController{
         }
        
     }
-    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        if #available(iOS 13, *) {
+            return .lightContent
+        } else {
+            return .default
+        }
+    }
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         get {
             return .portrait
             
         }
     }
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .darkContent
-    }
+   
     @objc func proImageTapped (){
         let destinationVC = storyboard?.instantiateViewController(withIdentifier: "RemoveViewController") as! RemoveViewController
         destinationVC.modalPresentationStyle = .fullScreen
@@ -185,11 +189,11 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
             SKPaymentQueue.default().restoreCompletedTransactions()
 
         case 4:
-            if let url = URL(string: "https://sites.google.com/view/baby-sleep-sounds-terms-of-con/home") {
+            if let url = URL(string: "https://termify.io/eula/1660213690") {
                 UIApplication.shared.open(url)
             }
         case 5:
-                if let url = URL(string: "https://sites.google.com/view/baby-sleep-sounds-privacy/home") {
+                if let url = URL(string: "https://termify.io/privacy-policy/1660214687") {
                     UIApplication.shared.open(url)
                 }
                 default: break

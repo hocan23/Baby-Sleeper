@@ -17,15 +17,21 @@ class RemoveViewController: UIViewController {
     @IBOutlet weak var yearPriceLabel: UILabel!
     @IBOutlet weak var lfitimePriceLabel: UILabel!
     
+    @IBOutlet weak var firstLineWidth: NSLayoutConstraint!
     @IBOutlet weak var getProWidth: NSLayoutConstraint!
     
+    @IBOutlet weak var restoreTopCons: NSLayoutConstraint!
     @IBOutlet weak var getProHeight: NSLayoutConstraint!
     
     @IBOutlet weak var babyImageHeight: NSLayoutConstraint!
     
+    @IBOutlet weak var textviewHeight: NSLayoutConstraint!
+    @IBOutlet weak var textView: UITextView!
+    @IBOutlet weak var scrollHeihgt: NSLayoutConstraint!
+    @IBOutlet weak var scrollContentView: UIView!
+    @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var unlockLabel: UILabel!
     @IBOutlet weak var removeLabel: UILabel!
-    @IBOutlet weak var termsWidth: NSLayoutConstraint!
     @IBOutlet weak var restoreWidth: NSLayoutConstraint!
     @IBOutlet weak var midTopConstant: NSLayoutConstraint!
     @IBOutlet weak var bottomTopConstant: NSLayoutConstraint!
@@ -76,8 +82,18 @@ class RemoveViewController: UIViewController {
             SKPaymentQueue.default().restoreCompletedTransactions()
 
         }
-        print(retDate)
-        // Do any additional setup after loading the view.
+        firstLineWidth.constant = view.frame.width * 0.6
+        if let top
+                = UIApplication.shared.windows.first?.safeAreaInsets.top
+            {
+                scrollView.contentInset.top = -top
+            restoreTopCons.constant = 20+top
+            }
+        if let bottom
+                = UIApplication.shared.windows.first?.safeAreaInsets.bottom
+            {
+                scrollView.contentInset.bottom = -bottom
+            }
     }
     override func viewWillAppear(_ animated: Bool) {
         if isAd == true {
@@ -105,31 +121,34 @@ class RemoveViewController: UIViewController {
             bannerView.delegate = self
         }
         if UIDevice.current.userInterfaceIdiom == .pad  {
-            leftSidesWidth.constant = view.frame.width*0.6
+////            leftSidesWidth.constant = view.frame.width*0.6
+            textView.font = textView.font!.withSize(view.frame.height*0.02)
+
+            scrollHeihgt.constant = view.frame.height*1.4
+            textviewHeight.constant = 600
             firstLineHeight.constant = 130
             secondLineHeight.constant = 130
             thirdLineHeight.constant = 130
-            bottomTopConstant.constant = 30
-            midTopConstant.constant = 30
-            privacyLabel.font = privacyLabel.font.withSize(view.frame.height*0.022)
-            termsLabel.font = termsLabel.font.withSize(view.frame.height*0.022)
+//            bottomTopConstant.constant = 30
+//            midTopConstant.constant = 30
+            privacyLabel.font = privacyLabel.font.withSize(view.frame.height*0.018)
+            termsLabel.font = termsLabel.font.withSize(view.frame.height*0.018)
             getProWidth.constant = view.frame.height*0.13
             getProHeight.constant = view.frame.height*0.13
         }
       
     }
-//    @objc func addCounterr(){
-//        Utils.addTimer -= 1
-//        if Utils.addTimer == 0 {
-//            Utils.addShow = true
-//
-//        }
-//        print(Utils.addTimer)
-//    }
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         get {
             return .portrait
 
+        }
+    }
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        if #available(iOS 13, *) {
+            return .lightContent
+        } else {
+            return .default
         }
     }
     func setupUi(){
@@ -187,7 +206,7 @@ class RemoveViewController: UIViewController {
         view.layer.maskedCorners = [ .layerMaxXMaxYCorner, .layerMaxXMinYCorner]
     }
     @objc func privacyTapped (){
-        guard let url = URL(string: "https://sites.google.com/view/baby-sleep-sounds-terms-of-con/home") else { return }
+        guard let url = URL(string: "https://termify.io/eula/1660213690") else { return }
         UIApplication.shared.open(url)
     
         }
@@ -244,32 +263,7 @@ class RemoveViewController: UIViewController {
             
         }
     }
-    @objc func bottomRightViewTapped (){
-        if SKPaymentQueue.canMakePayments(){
-            let set :  Set<String> = [Products.lifeTimePro.rawValue]
-            print(set)
-            let productRequest = SKProductsRequest(productIdentifiers: set)
-            productRequest.delegate = self
-            productRequest.start()
-            
-        }
-    }
-   
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-  
-    
-    @IBAction func backBtnTapped(_ sender: UIButton) {
-//        GSAudio.sharedInstance.playSounds(soundFiles: Utils.listMusic ?? [])
-        
+    @IBAction func closeTappedd(_ sender: UIButton) {
         if Utils.addTimer <= 0{
         if interstitial != nil  {
                 GSAudio.sharedInstance.stopSounds(soundFiles: Utils.listMusic ?? [])
@@ -296,8 +290,34 @@ class RemoveViewController: UIViewController {
       
         self.present(destinationVC, animated: true, completion: nil)
     }
+    
     }
+    @objc func bottomRightViewTapped (){
+        if SKPaymentQueue.canMakePayments(){
+            let set :  Set<String> = [Products.lifeTimePro.rawValue]
+            print(set)
+            let productRequest = SKProductsRequest(productIdentifiers: set)
+            productRequest.delegate = self
+            productRequest.start()
+            
+        }
+        
+        
+    }
+   
 }
+    /*
+    // MARK: - Navigation
+
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destination.
+        // Pass the selected object to the new view controller.
+    }
+    */
+  
+    
+
 extension RemoveViewController: SKProductsRequestDelegate, SKPaymentTransactionObserver{
     
     func productsRequest(_ request: SKProductsRequest, didReceive response: SKProductsResponse) {

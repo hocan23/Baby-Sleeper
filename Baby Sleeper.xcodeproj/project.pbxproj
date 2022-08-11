@@ -880,7 +880,7 @@
 				DEVELOPMENT_TEAM = CDLRAYVNZ9;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Baby Sleeper/Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = babysleeper;
+				INFOPLIST_KEY_CFBundleDisplayName = "Baby Sleeper ";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -913,7 +913,7 @@
 				DEVELOPMENT_TEAM = CDLRAYVNZ9;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Baby Sleeper/Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = babysleeper;
+				INFOPLIST_KEY_CFBundleDisplayName = "Baby Sleeper ";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;

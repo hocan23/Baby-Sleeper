@@ -158,6 +158,13 @@ class ViewController: UIViewController {
 
         }
     }
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        if #available(iOS 13, *) {
+            return .lightContent
+        } else {
+            return .default
+        }
+    }
     func bottomRadius(view : UIView){
         view.clipsToBounds = true
             view.layer.cornerRadius = 20

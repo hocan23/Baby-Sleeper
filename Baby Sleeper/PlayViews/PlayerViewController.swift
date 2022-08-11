@@ -62,6 +62,13 @@ class PlayerViewController: UIViewController ,AVAudioPlayerDelegate,TimerStartPr
 
         }
     }
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        if #available(iOS 13, *) {
+            return .lightContent
+        } else {
+            return .default
+        }
+    }
     func timerStart(time: Int) {
         timerCount = time
         timerss.invalidate()

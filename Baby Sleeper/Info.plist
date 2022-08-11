@@ -2,8 +2,19 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>FacebookAppID</key>
+	<string>5740849902631949</string>
+	<key>FacebookDisplayName</key>
+	<string>Baby Sleep Sounds</string>
 	<key>GADApplicationIdentifier</key>
 	<string>ca-app-pub-1501030234998564~7447487167</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>fbapi</string>
+		<string>fb-messenger-share-api</string>
+		<string>fbauth2</string>
+		<string>fbshareextension</string>
+	</array>
 	<key>SKAdNetworkItems</key>
 	<array>
 		<dict>
@@ -179,26 +190,6 @@
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>audio</string>
-	</array>
-	<key>CFBundleURLTypes</key>
-	<array>
-		<dict>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>fb{your-app-id}</string>
-			</array>
-		</dict>
-	</array>
-	<key>FacebookAppID</key>
-	<string>5740849902631949</string>
-	<key>FacebookDisplayName</key>
-	<string>Baby Sleep Sounds</string>
-	<key>LSApplicationQueriesSchemes</key>
-	<array>
-		<string>fbapi</string>
-		<string>fb-messenger-share-api</string>
-		<string>fbauth2</string>
-		<string>fbshareextension</string>
 	</array>
 </dict>
 </plist>

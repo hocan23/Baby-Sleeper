@@ -39,6 +39,14 @@ class TimerViewController: UIViewController {
 
         }
     }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        if #available(iOS 13, *) {
+            return .lightContent
+        } else {
+            return .default
+        }
+    }
     override func viewDidDisappear(_ animated: Bool) {
         Utils.timerCount = time ?? 0
     }
