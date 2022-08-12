@@ -27,22 +27,16 @@ class MixPlayerViewController: UIViewController {
             for a in playlistlocale{
                 var b = Utils.readLocale(key: a )
                 playlist.append(b)
-                
             }
-            
-            print(playlist)
         }
         view.overrideUserInterfaceStyle = .light
-        
-        //        playlist = Utils.readLocale(key: inputName ?? ""
-        // Do any additional setup after loading the view.
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         if Utils.isPremium == "premium"{
             
         }else{
             createAdd()
-            
             bannerView = GADBannerView(adSize: GADAdSizeBanner)
             bannerView.adUnitID = Utils.bannerId
             bannerView.rootViewController = self
@@ -50,12 +44,11 @@ class MixPlayerViewController: UIViewController {
             bannerView.delegate = self
         }
     }
+    
     override func viewDidDisappear(_ animated: Bool) {
         if playlist.isEmpty == false{
             Utils.listMusic = playlist[selectNumber ?? 0]
-            
         }
-        
     }
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -65,17 +58,19 @@ class MixPlayerViewController: UIViewController {
             return .default
         }
     }
+    
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         get {
             return .portrait
-            
         }
     }
 }
+
 extension MixPlayerViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         playlist.count ?? 0
     }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MixCell", for: indexPath) as! MixPlayerTableViewCell
         cell.headerLabel.text = playlistlocale![indexPath.row]
@@ -87,7 +82,6 @@ extension MixPlayerViewController: UITableViewDelegate, UITableViewDataSource {
                 b+=1
             }else{
                 audioNames += ", \(a.musicName)"
-                
             }
         }
         if indexPath.row == selectNumber{
@@ -133,15 +127,13 @@ extension MixPlayerViewController: UITableViewDelegate, UITableViewDataSource {
         selectNumber = indexPath.row
         tableView.reloadData()
         GSAudio.sharedInstance.stopSounds(soundFiles: playlist[beforeSelectNumber ?? 0])
-        print(beforeSelectNumber)
-        print(selectNumber)
+     
         if beforeSelectNumber != selectNumber{
             for a in playlist[indexPath.row]{
                 GSAudio.sharedInstance.playSound(soundFileName: a.musicName, volume: a.musicVolume)
                 
             }
             Utils.setToMusicList(type: playlist[indexPath.row])
-            print(Utils.listMusic)
             beforeSelectNumber = indexPath.row
             
         }else{

@@ -99,7 +99,9 @@ class RemoveViewController: UIViewController {
         if #available(iOS 11, *) {
             scrollView.contentInsetAdjustmentBehavior = .never
             scrollView.bounces = false
-        }    }
+        }
+        
+    }
     override func viewWillAppear(_ animated: Bool) {
         if isAd == true {
             GSAudio.sharedInstance.playSounds(soundFiles: Utils.listMusic ?? [])
@@ -112,10 +114,10 @@ class RemoveViewController: UIViewController {
         }
         print(Utils.isPremium )
         if Utils.isPremium == "premium"{
-            let destinationVC = storyboard?.instantiateViewController(withIdentifier: "ViewController") as! ViewController
-            destinationVC.modalPresentationStyle = .fullScreen
-            
-            self.present(destinationVC, animated: true, completion: nil)
+//            let destinationVC = storyboard?.instantiateViewController(withIdentifier: "ViewController") as! ViewController
+//            destinationVC.modalPresentationStyle = .fullScreen
+//
+//            self.present(destinationVC, animated: true, completion: nil)
         }else{
             createAdd()
             

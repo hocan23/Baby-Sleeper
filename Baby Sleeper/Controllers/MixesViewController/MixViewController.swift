@@ -29,12 +29,11 @@ class MixViewController: UIViewController ,AVAudioPlayerDelegate  {
         playlistLocale = Utils.readLocalList(key: "list")
         view.overrideUserInterfaceStyle = .light
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         if Utils.isPremium == "premium"{
-            
         }else{
             createAdd()
-            
             bannerView = GADBannerView(adSize: GADAdSizeBanner)
             bannerView.adUnitID = Utils.bannerId
             bannerView.rootViewController = self
@@ -42,12 +41,13 @@ class MixViewController: UIViewController ,AVAudioPlayerDelegate  {
             bannerView.delegate = self
         }
     }
+    
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         get {
             return .portrait
-            
         }
     }
+    
     override var preferredStatusBarStyle: UIStatusBarStyle {
         if #available(iOS 13, *) {
             return .lightContent
@@ -55,6 +55,7 @@ class MixViewController: UIViewController ,AVAudioPlayerDelegate  {
             return .default
         }
     }
+    
     func alert (){
         let alertController = UIAlertController(title: "Mixes Name?", message: "", preferredStyle: .alert)
         
@@ -67,31 +68,24 @@ class MixViewController: UIViewController ,AVAudioPlayerDelegate  {
         // add the buttons/actions to the view controller
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         let saveAction = UIAlertAction(title: "Save", style: .default) { _ in
-            
-            // this code runs when the user hits the "save" button
-            
+           
             let inputName = alertController.textFields![0].text
             self.playlistLocale?.append(inputName ?? "")
-            print(self.playlistLocale)
             Utils.saveLocalList(array: self.playlistLocale ?? [], key: "list")
-            print(Utils.readLocalList(key: "list"))
             Utils.saveLocal(array: self.playlist ?? [], key: inputName ?? "")
-            print(Utils.readLocale(key: inputName ?? ""))
-            
         }
         
         alertController.addAction(cancelAction)
         alertController.addAction(saveAction)
-        
-        present(alertController, animated: true, completion: nil)
+                present(alertController, animated: true, completion: nil)
     }
     
     @IBAction func saveTapped(_ sender: UIButton) {
         saveButton.zoomIn()
         alert()
-        print(playlist)
         
     }
+    
     @IBAction func closedTapped(_ sender: Any) {
         closeButton.zoomIn()
         dismiss(animated: true)
@@ -101,15 +95,13 @@ class MixViewController: UIViewController ,AVAudioPlayerDelegate  {
         print(sender.value)
         playlist?[sender.tag].musicVolume = sender.value
         GSAudio.sharedInstance.stopSound(soundFileName: playlist![sender.tag].musicName)
-        
         playlist?[sender.tag].musicVolume = sender.value
         GSAudio.sharedInstance.playSound(soundFileName:  playlist![sender.tag].musicName,volume:  playlist![sender.tag].musicVolume)
         
     }
-    
 }
+
 extension MixViewController: UITableViewDataSource, UITableViewDelegate {
-    
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
@@ -139,6 +131,7 @@ extension MixViewController: UITableViewDataSource, UITableViewDelegate {
        
     }
 }
+
 extension MixViewController: GADBannerViewDelegate, GADFullScreenContentDelegate{
     func createAdd() {
         let request = GADRequest()

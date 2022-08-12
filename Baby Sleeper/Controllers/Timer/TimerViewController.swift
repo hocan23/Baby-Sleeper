@@ -22,6 +22,8 @@ class TimerViewController: UIViewController {
     var hour:Int = 0
     var minutes:Int = 0
     var time:Int?
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         pickerTime.delegate = self
@@ -32,6 +34,14 @@ class TimerViewController: UIViewController {
         remainTimeLabel.isHidden = true
         view.overrideUserInterfaceStyle = .light
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        timerStart(time: timerCount)
+        if Utils.timerRemainCount != 0{
+            saveBtn.setTitle("Stop", for: .normal)
+        }
+    }
+    
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         get {
             return .portrait
@@ -49,12 +59,7 @@ class TimerViewController: UIViewController {
     override func viewDidDisappear(_ animated: Bool) {
         Utils.timerCount = time ?? 0
     }
-    override func viewWillAppear(_ animated: Bool) {
-        timerStart(time: timerCount)
-        if Utils.timerRemainCount != 0{
-            saveBtn.setTitle("Stop", for: .normal)
-        }
-    }
+   
     func timerStart(time: Int) {
         timerCount = time
         timerss.invalidate()
@@ -63,19 +68,14 @@ class TimerViewController: UIViewController {
         }else{
             timerss = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timerCounterr), userInfo: nil, repeats: true)
         }
-        
-        
-        
-        
     }
+    
     @objc func timerCounterr(){
         self.timerCount -= 1
-        print(timerCount)
         if self.timerCount == 0 {
             print("Go!")
             print(Utils.listMusic)
             GSAudio.sharedInstance.stopSounds(soundFiles: Utils.listMusic ?? [])
-            
             self.remainTimeLabel.isHidden = true
             Utils.listMusic = nil
             Utils.timerRemainCount = 0
@@ -83,17 +83,13 @@ class TimerViewController: UIViewController {
             
         } else {
             self.remainTimeLabel.isHidden = false
-            //
             let watch = StopWatch(totalSeconds: self.timerCount)
             print(watch.simpleTimeString)
             let currentTime = watch.simpleTimeString
-            
-            //self.dataLabel.setNeedsDisplay()
             self.remainTimeLabel.text = "\(currentTime)"
-            
         }
-        
     }
+    
     @IBAction func saveTapped(_ sender: Any) {
         saveBtn.zoomIn()
         time = (minutes+hour*60)*60
@@ -105,27 +101,17 @@ class TimerViewController: UIViewController {
             remainTimeLabel.isHidden = true
             saveBtn.setTitle("Start", for: .normal)
         }else{
-            
             delegate?.timerStart(time: time ?? 0)
             dismiss(animated: true)
         }
     }
+    
     @IBAction func exitTapped(_ sender: Any) {
         exitBtn.zoomIn()
         dismiss(animated: true)
     }
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destination.
-     // Pass the selected object to the new view controller.
-     }
-     */
-    
 }
+
 extension TimerViewController:UIPickerViewDelegate,UIPickerViewDataSource {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 2

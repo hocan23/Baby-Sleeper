@@ -76,6 +76,8 @@
 		B77B6456289EAC4E00403879 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B77B6455289EAC4E00403879 /* StoreKit.framework */; };
 		B780F914289AF1B600C1659C /* MixPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B780F913289AF1B600C1659C /* MixPlayerViewController.swift */; };
 		B780F917289AF3F600C1659C /* MixPlayerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B780F916289AF3F600C1659C /* MixPlayerTableViewCell.swift */; };
+		B7DCAAB528A644480049EF0F /* AssetsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7DCAAB428A644480049EF0F /* AssetsModel.swift */; };
+		B7DCAAB728A647590049EF0F /* PlayerBrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7DCAAB628A647590049EF0F /* PlayerBrain.swift */; };
 		F993C8886EBA39435F262FE3 /* Pods_Baby_SleeperTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BDC9B6894D3F927F29B5B3E0 /* Pods_Baby_SleeperTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -177,6 +179,8 @@
 		B77B6459289EB8A500403879 /* Configuration.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = Configuration.storekit; sourceTree = "<group>"; };
 		B780F913289AF1B600C1659C /* MixPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MixPlayerViewController.swift; sourceTree = "<group>"; };
 		B780F916289AF3F600C1659C /* MixPlayerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MixPlayerTableViewCell.swift; sourceTree = "<group>"; };
+		B7DCAAB428A644480049EF0F /* AssetsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetsModel.swift; sourceTree = "<group>"; };
+		B7DCAAB628A647590049EF0F /* PlayerBrain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerBrain.swift; sourceTree = "<group>"; };
 		BDC9B6894D3F927F29B5B3E0 /* Pods_Baby_SleeperTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Baby_SleeperTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -249,19 +253,13 @@
 			children = (
 				B7060B1C28944F0600FF042D /* AppDelegate.swift */,
 				B7060B1E28944F0600FF042D /* SceneDelegate.swift */,
-				B7060B2028944F0600FF042D /* ViewController.swift */,
-				B7E62F3D28A57F430013349C /* SubscriptionView */,
-				B77B6459289EB8A500403879 /* Configuration.storekit */,
-				B780F915289AF28600C1659C /* MixPlayerView */,
-				B75447A3289725B1009488E4 /* Timer */,
-				B765A91A28955B700009BC1C /* MixesViewController */,
 				B7060B5528945DFB00FF042D /* Extension.swift */,
+				B77B6459289EB8A500403879 /* Configuration.storekit */,
+				B7DCAAB328A644200049EF0F /* Models */,
+				B7DCAAAF28A6435F0049EF0F /* View */,
+				B7DCAAB028A643730049EF0F /* Controllers */,
+				B7DCAAB228A643D40049EF0F /* Assets */,
 				B754479F289723CF009488E4 /* CeraPro-Medium.otf */,
-				B767781E2897E0C5006D7D94 /* Musics */,
-				B767785B2897E909006D7D94 /* Sounds */,
-				B7060B5728946E8800FF042D /* PlayViews */,
-				B7060B5228945CFC00FF042D /* Settings */,
-				B7060B2228944F0600FF042D /* Main.storyboard */,
 				B7060B2528944F0800FF042D /* Assets.xcassets */,
 				B7060B2728944F0800FF042D /* LaunchScreen.storyboard */,
 				B7060B2A28944F0800FF042D /* Info.plist */,
@@ -398,6 +396,54 @@
 				B780F916289AF3F600C1659C /* MixPlayerTableViewCell.swift */,
 			);
 			path = MixPlayerView;
+			sourceTree = "<group>";
+		};
+		B7DCAAAF28A6435F0049EF0F /* View */ = {
+			isa = PBXGroup;
+			children = (
+				B7060B2228944F0600FF042D /* Main.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		B7DCAAB028A643730049EF0F /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				B7DCAAB128A643C10049EF0F /* MainView */,
+				B7060B5228945CFC00FF042D /* Settings */,
+				B7E62F3D28A57F430013349C /* SubscriptionView */,
+				B765A91A28955B700009BC1C /* MixesViewController */,
+				B75447A3289725B1009488E4 /* Timer */,
+				B7060B5728946E8800FF042D /* PlayViews */,
+				B780F915289AF28600C1659C /* MixPlayerView */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		B7DCAAB128A643C10049EF0F /* MainView */ = {
+			isa = PBXGroup;
+			children = (
+				B7060B2028944F0600FF042D /* ViewController.swift */,
+			);
+			path = MainView;
+			sourceTree = "<group>";
+		};
+		B7DCAAB228A643D40049EF0F /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				B767785B2897E909006D7D94 /* Sounds */,
+				B767781E2897E0C5006D7D94 /* Musics */,
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
+		B7DCAAB328A644200049EF0F /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				B7DCAAB428A644480049EF0F /* AssetsModel.swift */,
+				B7DCAAB628A647590049EF0F /* PlayerBrain.swift */,
+			);
+			name = Models;
 			sourceTree = "<group>";
 		};
 		B7E62F3D28A57F430013349C /* SubscriptionView */ = {
@@ -693,10 +739,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B7DCAAB528A644480049EF0F /* AssetsModel.swift in Sources */,
 				B765A91928955B6A0009BC1C /* MixViewController.swift in Sources */,
 				B7060B2128944F0600FF042D /* ViewController.swift in Sources */,
 				B720D0B6289853DD004B2715 /* RemoveViewController.swift in Sources */,
 				B780F914289AF1B600C1659C /* MixPlayerViewController.swift in Sources */,
+				B7DCAAB728A647590049EF0F /* PlayerBrain.swift in Sources */,
 				B7060B1D28944F0600FF042D /* AppDelegate.swift in Sources */,
 				B7060B1F28944F0600FF042D /* SceneDelegate.swift in Sources */,
 				B7060B5928946EB800FF042D /* PlayerViewController.swift in Sources */,

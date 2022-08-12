@@ -48,51 +48,41 @@ class ViewController: UIViewController {
     @IBOutlet weak var bottomRightView: UIView!
     @IBOutlet weak var topRightView: UIView!
     @IBOutlet weak var topLeftView: UIView!
-    
-    
     @IBOutlet weak var topLeftLabel: UILabel!
-    
     @IBOutlet weak var topRightLabel: UILabel!
-    
     @IBOutlet weak var bottomLeftLabel: UILabel!
-    
     @IBOutlet weak var bottomRightLabel: UILabel!
     var bannerView: GADBannerView!
     private var interstitial: GADInterstitialAd?
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         AppEvents.logEvent(.viewedContent)
-        let destinationVC = storyboard?.instantiateViewController(withIdentifier: "RemoveViewController") as! RemoveViewController
-        destinationVC.modalPresentationStyle = .fullScreen
-        self.present(destinationVC, animated: true, completion: nil)
-        
         Utils.isPremium = Utils.readLocal(key: "purchase")
         setupUi()
-        
-        // Do any additional setup after loading the view.
+     
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        Utils.allMusics[7].isPremium = false
-        print(Utils.allMusics[7])
+        BabyAudio.allMusics[7].isPremium = false
         if Utils.isPremium == "premium"{
             removeAdView.image = UIImage(named: "proheader")
             removeAdView.contentMode = .scaleAspectFit
             removeAdView.isUserInteractionEnabled = false
-            
             removeLabell.isHidden = true
             getProImage.isHidden = true
             unlockLabel.isHidden = true
             
-            for b in 0...Utils.allMusics.count-1{
-                Utils.allMusics[b].isPremium = false
+            for b in 0...BabyAudio.allMusics.count-1{
+                BabyAudio.allMusics[b].isPremium = false
             }
-            for b in 0...Utils.allSounds.count-1{
-                Utils.allSounds[b].isPremium = false
+            for b in 0...BabyAudio.allSounds.count-1{
+                BabyAudio.allSounds[b].isPremium = false
             }
         }else{
             createAdd()
-            
             bannerView = GADBannerView(adSize: GADAdSizeBanner)
             bannerView.adUnitID = Utils.bannerId
             bannerView.rootViewController = self
@@ -153,12 +143,13 @@ class ViewController: UIViewController {
         view.overrideUserInterfaceStyle = .light
         
     }
+    
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         get {
             return .portrait
-            
         }
     }
+    
     override var preferredStatusBarStyle: UIStatusBarStyle {
         if #available(iOS 13, *) {
             return .lightContent
@@ -166,35 +157,40 @@ class ViewController: UIViewController {
             return .default
         }
     }
+    
     func bottomRadius(view : UIView){
         view.clipsToBounds = true
         view.layer.cornerRadius = 20
         view.layer.maskedCorners = [ .layerMaxXMaxYCorner, .layerMinXMaxYCorner]
     }
+    
     @objc func topLeftViewTapped (){
         let destinationVC = storyboard?.instantiateViewController(withIdentifier: "PlayerViewController") as! PlayerViewController
         destinationVC.modalPresentationStyle = .fullScreen
         destinationVC.vcType = "sound"
         self.present(destinationVC, animated: true, completion: nil)
     }
+    
     @objc func topRightViewTapped (){
         let destinationVC = storyboard?.instantiateViewController(withIdentifier: "PlayerViewController") as! PlayerViewController
         destinationVC.modalPresentationStyle = .fullScreen
         destinationVC.vcType = "music"
         self.present(destinationVC, animated: true, completion: nil)
     }
+    
     @objc func bottomLeftViewTapped (){
         bottomLeftView.zoomIn()
         let destinationVC = storyboard?.instantiateViewController(withIdentifier: "MixPlayerViewController") as! MixPlayerViewController
         destinationVC.modalPresentationStyle = .formSheet
         self.present(destinationVC, animated: true, completion: nil)
-        
     }
+    
     @objc func removeTapped (){
         let destinationVC = storyboard?.instantiateViewController(withIdentifier: "RemoveViewController") as! RemoveViewController
         destinationVC.modalPresentationStyle = .fullScreen
         self.present(destinationVC, animated: true, completion: nil)
     }
+    
     @objc func bottomRightViewTapped (){
         let destinationVC = storyboard?.instantiateViewController(withIdentifier: "SettingsViewController") as! SettingsViewController
         destinationVC.modalPresentationStyle = .fullScreen
