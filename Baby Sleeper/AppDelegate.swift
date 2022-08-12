@@ -7,6 +7,7 @@
 
 import UIKit
 import GoogleMobileAds
+import AVFAudio
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -14,6 +15,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var timerAddCount = 10
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        
+        let session = AVAudioSession.sharedInstance()
+                do{
+                    try session.setActive(true)
+                    try session.setCategory(AVAudioSession.Category.playback)
+                } catch{
+                    print(error.localizedDescription)
+                }
+                return true
+        
         GADMobileAds.sharedInstance().start(completionHandler: nil)
         timerAdd = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(addCounterr), userInfo: nil, repeats: true)
         // Override point for customization after application launch.
