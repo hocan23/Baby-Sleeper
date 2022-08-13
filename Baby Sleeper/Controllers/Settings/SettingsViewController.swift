@@ -156,12 +156,8 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
         }
         switch indexPath.row{
         case 0 :
-            if let name = URL(string: "https://apps.apple.com/us/app/baby-sleep-sound-white-noise/id1638514663"), !name.absoluteString.isEmpty {
-                let objectsToShare = [name]
-                let activityVC = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
-                self.present(activityVC, animated: true, completion: nil)
-            } else {
-                // show alert for not available
+            if let url = URL(string: "https://apps.apple.com/us/developer/mehmet-rasit-arisu/id1346135076?see-all=i-phonei-pad-apps") {
+                UIApplication.shared.open(url)
             }
         case 1:
             if let url = URL(string: "https://apps.apple.com/tr/developer/mehmet-rasit-arisu/id1346135076?see-all=i-phonei-pad-apps") {
