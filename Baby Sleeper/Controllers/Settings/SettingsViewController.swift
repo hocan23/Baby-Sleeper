@@ -156,9 +156,20 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
         }
         switch indexPath.row{
         case 0 :
-            if let url = URL(string: "https://apps.apple.com/us/developer/mehmet-rasit-arisu/id1346135076?see-all=i-phonei-pad-apps") {
-                UIApplication.shared.open(url)
+            if let urlStr = NSURL(string: "https://apps.apple.com/us/app/baby-sleep-sound-white-noise/id1638514663") {
+                let objectsToShare = [urlStr]
+                let activityVC = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
+
+                if UIDevice.current.userInterfaceIdiom == .pad {
+                    if let popup = activityVC.popoverPresentationController {
+                        popup.sourceView = self.view
+                        popup.sourceRect = CGRect(x: self.view.frame.size.width / 2, y: self.view.frame.size.height / 4, width: 0, height: 0)
+                    }
+                }
+
+                self.present(activityVC, animated: true, completion: nil)
             }
+
         case 1:
             if let url = URL(string: "https://apps.apple.com/tr/developer/mehmet-rasit-arisu/id1346135076?see-all=i-phonei-pad-apps") {
                 UIApplication.shared.open(url)
