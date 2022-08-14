@@ -52,7 +52,10 @@ class SettingsViewController: UIViewController{
     override func viewWillAppear(_ animated: Bool) {
         if isAd == true {
             Utils.addTimer = 40
-            self.dismiss(animated: true)
+            let destinationVC = storyboard?.instantiateViewController(withIdentifier: "ViewController") as! ViewController
+            destinationVC.modalPresentationStyle = .fullScreen
+            
+            self.present(destinationVC, animated: true, completion: nil)
         }
         
         if Utils.isPremium == "premium"{
@@ -90,6 +93,7 @@ class SettingsViewController: UIViewController{
     @objc func proImageTapped (){
         let destinationVC = storyboard?.instantiateViewController(withIdentifier: "RemoveViewController") as! RemoveViewController
         destinationVC.modalPresentationStyle = .fullScreen
+        destinationVC.isComeFromPlayer = "settings"
         self.present(destinationVC, animated: true, completion: nil)
     }
     
@@ -123,10 +127,16 @@ class SettingsViewController: UIViewController{
                 isAd = true
             } else {
                 print("Ad wasn't ready")
-                self.dismiss(animated: true)
+                let destinationVC = storyboard?.instantiateViewController(withIdentifier: "ViewController") as! ViewController
+                destinationVC.modalPresentationStyle = .fullScreen
+                
+                self.present(destinationVC, animated: true, completion: nil)
             }
         }else{
-            self.dismiss(animated: true)
+            let destinationVC = storyboard?.instantiateViewController(withIdentifier: "ViewController") as! ViewController
+            destinationVC.modalPresentationStyle = .fullScreen
+            
+            self.present(destinationVC, animated: true, completion: nil)
         }
         
     }
