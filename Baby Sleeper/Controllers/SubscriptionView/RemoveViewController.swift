@@ -280,6 +280,13 @@ class RemoveViewController: UIViewController {
         }
     }
     @IBAction func closeTappedd(_ sender: UIButton) {
+        if Utils.isRemoveFirstClose == true{
+            Utils.isRemoveFirstClose = false
+            let destinationVC = storyboard?.instantiateViewController(withIdentifier: "ViewController") as! ViewController
+            destinationVC.modalPresentationStyle = .fullScreen
+            
+            self.present(destinationVC, animated: true, completion: nil)
+        }else{
         if Utils.addTimer <= 0{
             if interstitial != nil  {
                 GSAudio.sharedInstance.stopSounds(soundFiles: Utils.listMusic ?? [])
@@ -306,7 +313,7 @@ class RemoveViewController: UIViewController {
             
             self.present(destinationVC, animated: true, completion: nil)
         }
-        
+        }
     }
     @objc func bottomRightViewTapped (){
         if SKPaymentQueue.canMakePayments(){

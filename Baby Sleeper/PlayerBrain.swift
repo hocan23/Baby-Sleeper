@@ -8,7 +8,7 @@
 import Foundation
 import AVFAudio
 import UIKit
-
+import GoogleMobileAds
 
 class GSAudio: NSObject, AVAudioPlayerDelegate {
     
