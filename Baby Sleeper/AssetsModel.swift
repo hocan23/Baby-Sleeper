@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct BabyAudio: Codable {
+struct BabyAudio: Codable,Equatable {
     var musicName : String
     var musicImage : String
     var musicVolume : Float

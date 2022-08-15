@@ -9,7 +9,10 @@ import UIKit
 import AVFAudio
 import GoogleMobileAds
 
-class PlayerViewController: UIViewController ,AVAudioPlayerDelegate,TimerStartProtocol  {
+class PlayerViewController: UIViewController ,AVAudioPlayerDelegate,TimerStartProtocol, DeleteAudio,MusicPlayed {
+  
+    
+ 
     
     @IBOutlet weak var setViewHeightConstraint: NSLayoutConstraint!
    
@@ -156,6 +159,7 @@ class PlayerViewController: UIViewController ,AVAudioPlayerDelegate,TimerStartPr
         myMixesLabel.zoomIn()
         let destinationVC = storyboard?.instantiateViewController(withIdentifier: "MixPlayerViewController") as! MixPlayerViewController
         destinationVC.modalPresentationStyle = .formSheet
+        destinationVC.delegate = self
         self.present(destinationVC, animated: true, completion: nil)
     }
     
@@ -187,6 +191,8 @@ class PlayerViewController: UIViewController ,AVAudioPlayerDelegate,TimerStartPr
             print(Utils.listMusic)
             GSAudio.sharedInstance.stopSounds(soundFiles: Utils.listMusic!)
             isPlay = false
+            Utils.listMusic = nil
+
             playImage.image = UIImage(named: "play")
         }
     }
@@ -197,8 +203,42 @@ class PlayerViewController: UIViewController ,AVAudioPlayerDelegate,TimerStartPr
         destinationVC.modalPresentationStyle = .pageSheet
         print(currentPlayList)
         destinationVC.playlist = currentPlayList
+        destinationVC.delegate = self
         self.present(destinationVC, animated: true, completion: nil)
         
+    }
+    func deleteAudio(selectedNumber: Int) {
+        var selectedQueeNumber : Int?
+        
+        var a = 0
+        for b in allSounds{
+            if b.musicName == currentPlayList[selectedNumber].musicName{
+                selectedQueeNumber=a
+                currentPlayList.remove(at: selectedNumber)
+                break
+            }
+            a+=1
+        }
+        if selectedQueeNumber != nil{
+            allSounds[selectedQueeNumber!].isSelected = false
+        }
+        print(allSounds[selectedQueeNumber!].isSelected)
+        print(allSounds[selectedQueeNumber!].musicName)
+        if currentPlayList.count == 0{
+            isPlay = false
+            playImage.image = UIImage(named: "play")
+
+        }
+        playerCollection.reloadData()
+    }
+    func playMusic(isPlay: Bool) {
+        if isPlay == true{
+            playImage.image = UIImage(named: "pause")
+            self.isPlay = true
+        }else{
+            playImage.image = UIImage(named: "play")
+            self.isPlay = false
+        }
     }
     
     @IBAction func homePressed(_ sender: UIButton) {

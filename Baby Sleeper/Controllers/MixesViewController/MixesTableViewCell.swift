@@ -10,7 +10,8 @@ import UIKit
 class MixesTableViewCell: UITableViewCell {
     @IBOutlet weak var labelTxt: UILabel!
     
-    @IBOutlet weak var delete: UIImageView!
+    @IBOutlet weak var deleteBtn: UIButton!
+  
     @IBOutlet weak var slider: UISlider!
     override func awakeFromNib() {
         super.awakeFromNib()

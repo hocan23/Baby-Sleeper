@@ -7,6 +7,9 @@
 
 import UIKit
 import GoogleMobileAds
+protocol MusicPlayed{
+    func playMusic(isPlay: Bool)
+}
 class MixPlayerViewController: UIViewController {
     @IBOutlet weak var table: UITableView!
     var playlist : [[BabyAudio]] = []
@@ -16,7 +19,7 @@ class MixPlayerViewController: UIViewController {
     var selectNumber : Int?
     var bannerView: GADBannerView!
     private var interstitial: GADInterstitialAd?
-    
+    var delegate : MusicPlayed?
     override func viewDidLoad() {
         super.viewDidLoad()
         table.delegate = self
@@ -29,6 +32,19 @@ class MixPlayerViewController: UIViewController {
                 playlist.append(b)
             }
         }
+        var b = 0
+        for a in playlist{
+            if a == Utils.listMusic{
+                selectNumber = b
+                beforeSelectNumber = b
+                break
+            }
+            b+=1
+        }
+print(selectNumber)
+        print(beforeSelectNumber)
+        print(Utils.listMusic)
+        table.reloadData()
         view.overrideUserInterfaceStyle = .light
     }
     
@@ -46,9 +62,9 @@ class MixPlayerViewController: UIViewController {
     }
     
     override func viewDidDisappear(_ animated: Bool) {
-        if playlist.isEmpty == false{
-            Utils.listMusic = playlist[selectNumber ?? 0]
-        }
+//        if playlist.isEmpty == false{
+//            Utils.listMusic = playlist[selectNumber ?? 0]
+//        }
     }
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -89,7 +105,7 @@ extension MixPlayerViewController: UITableViewDelegate, UITableViewDataSource {
         }else{
             cell.viewBack.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.35)
         }
-        if beforeSelectNumber == nil{
+        if beforeSelectNumber == nil && selectNumber == nil{
             cell.viewBack.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.35)
             
         }
@@ -124,20 +140,25 @@ extension MixPlayerViewController: UITableViewDelegate, UITableViewDataSource {
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         GSAudio.sharedInstance.stopSounds(soundFiles: Utils.listMusic ?? [])
+        Utils.listMusic = nil
         selectNumber = indexPath.row
         tableView.reloadData()
         GSAudio.sharedInstance.stopSounds(soundFiles: playlist[beforeSelectNumber ?? 0])
-     
         if beforeSelectNumber != selectNumber{
             for a in playlist[indexPath.row]{
                 GSAudio.sharedInstance.playSound(soundFileName: a.musicName, volume: a.musicVolume)
                 
             }
+            delegate?.playMusic(isPlay: true)
+            Utils.listMusic = playlist[indexPath.row]
             Utils.setToMusicList(type: playlist[indexPath.row])
             beforeSelectNumber = indexPath.row
             
         }else{
+            delegate?.playMusic(isPlay: false)
             beforeSelectNumber = nil
+            selectNumber = nil
+            Utils.listMusic = nil
             tableView.reloadData()
         }
         

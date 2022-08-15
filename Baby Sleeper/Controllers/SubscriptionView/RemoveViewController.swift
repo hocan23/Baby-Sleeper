@@ -116,19 +116,19 @@ class RemoveViewController: UIViewController {
                 destinationVC.modalPresentationStyle = .fullScreen
                 self.present(destinationVC, animated: true, completion: nil)
             }else{
-            let destinationVC = storyboard?.instantiateViewController(withIdentifier: "ViewController") as! ViewController
-            destinationVC.modalPresentationStyle = .fullScreen
-            
-            self.present(destinationVC, animated: true, completion: nil)
+                let destinationVC = storyboard?.instantiateViewController(withIdentifier: "ViewController") as! ViewController
+                destinationVC.modalPresentationStyle = .fullScreen
+                
+                self.present(destinationVC, animated: true, completion: nil)
             }
             
         }
         print(Utils.isPremium )
         if Utils.isPremium == "premium"{
-//            let destinationVC = storyboard?.instantiateViewController(withIdentifier: "ViewController") as! ViewController
-//            destinationVC.modalPresentationStyle = .fullScreen
-//
-//            self.present(destinationVC, animated: true, completion: nil)
+            //            let destinationVC = storyboard?.instantiateViewController(withIdentifier: "ViewController") as! ViewController
+            //            destinationVC.modalPresentationStyle = .fullScreen
+            //
+            //            self.present(destinationVC, animated: true, completion: nil)
         }else{
             createAdd()
             
@@ -298,49 +298,49 @@ class RemoveViewController: UIViewController {
             
             self.present(destinationVC, animated: true, completion: nil)
         }else{
-        if Utils.addTimer <= 0{
-            if interstitial != nil  {
-                GSAudio.sharedInstance.stopSounds(soundFiles: Utils.listMusic ?? [])
-                interstitial?.present(fromRootViewController: self)
-                isAd = true
-            } else {
-                print("Ad wasn't ready")
-                
-                if isComeFromPlayer == "sound" || isComeFromPlayer == "music" || isComeFromPlayer == "settings" {
+            if Utils.addTimer <= 0{
+                if interstitial != nil  {
+                    GSAudio.sharedInstance.stopSounds(soundFiles: Utils.listMusic ?? [])
+                    interstitial?.present(fromRootViewController: self)
+                    isAd = true
+                } else {
+                    print("Ad wasn't ready")
+                    
+                    if isComeFromPlayer == "sound" || isComeFromPlayer == "music"  {
+                        let destinationVC = storyboard?.instantiateViewController(withIdentifier: "PlayerViewController") as! PlayerViewController
+                        destinationVC.modalPresentationStyle = .fullScreen
+                        destinationVC.vcType = isComeFromPlayer
+                        self.present(destinationVC, animated: true, completion: nil)
+                        
+                    }else if isComeFromPlayer == "settings"{
+                        let destinationVC = storyboard?.instantiateViewController(withIdentifier: "SettingsViewController") as! SettingsViewController
+                        destinationVC.modalPresentationStyle = .fullScreen
+                        self.present(destinationVC, animated: true, completion: nil)
+                    }else{
+                        
+                        let destinationVC = storyboard?.instantiateViewController(withIdentifier: "ViewController") as! ViewController
+                        destinationVC.modalPresentationStyle = .fullScreen
+                        
+                        self.present(destinationVC, animated: true, completion: nil)
+                    }
+                }
+            }else{
+                if isComeFromPlayer == "sound" || isComeFromPlayer == "music" {
                     let destinationVC = storyboard?.instantiateViewController(withIdentifier: "PlayerViewController") as! PlayerViewController
                     destinationVC.modalPresentationStyle = .fullScreen
                     destinationVC.vcType = isComeFromPlayer
                     self.present(destinationVC, animated: true, completion: nil)
-                    
                 }else if isComeFromPlayer == "settings"{
                     let destinationVC = storyboard?.instantiateViewController(withIdentifier: "SettingsViewController") as! SettingsViewController
                     destinationVC.modalPresentationStyle = .fullScreen
                     self.present(destinationVC, animated: true, completion: nil)
                 }else{
-                
-                let destinationVC = storyboard?.instantiateViewController(withIdentifier: "ViewController") as! ViewController
-                destinationVC.modalPresentationStyle = .fullScreen
-                
-                self.present(destinationVC, animated: true, completion: nil)
+                    let destinationVC = storyboard?.instantiateViewController(withIdentifier: "ViewController") as! ViewController
+                    destinationVC.modalPresentationStyle = .fullScreen
+                    
+                    self.present(destinationVC, animated: true, completion: nil)
+                }
             }
-            }
-        }else{
-            if isComeFromPlayer == "sound" || isComeFromPlayer == "music" {
-                let destinationVC = storyboard?.instantiateViewController(withIdentifier: "PlayerViewController") as! PlayerViewController
-                destinationVC.modalPresentationStyle = .fullScreen
-                destinationVC.vcType = isComeFromPlayer
-                self.present(destinationVC, animated: true, completion: nil)
-            }else if isComeFromPlayer == "settings"{
-                let destinationVC = storyboard?.instantiateViewController(withIdentifier: "SettingsViewController") as! SettingsViewController
-                destinationVC.modalPresentationStyle = .fullScreen
-                self.present(destinationVC, animated: true, completion: nil)
-            }else{
-            let destinationVC = storyboard?.instantiateViewController(withIdentifier: "ViewController") as! ViewController
-            destinationVC.modalPresentationStyle = .fullScreen
-            
-            self.present(destinationVC, animated: true, completion: nil)
-            }
-        }
         }
     }
     @objc func bottomRightViewTapped (){

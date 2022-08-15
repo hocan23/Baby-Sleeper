@@ -8,7 +8,12 @@
 import UIKit
 import AVFoundation
 import GoogleMobileAds
-class MixViewController: UIViewController ,AVAudioPlayerDelegate  {
+
+protocol DeleteAudio{
+    func deleteAudio(selectedNumber:Int)
+}
+
+class MixViewController: UIViewController   {
     var player : AVAudioPlayer?
     var playlistLocale : [String]?
     @IBOutlet weak var saveButton: UIButton!
@@ -17,12 +22,15 @@ class MixViewController: UIViewController ,AVAudioPlayerDelegate  {
     @IBOutlet weak var table: UITableView!
     var playlist : [BabyAudio]?
     var bannerView: GADBannerView!
+    var inde : Int?
+    var delegate : DeleteAudio?
     private var interstitial: GADInterstitialAd?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        table.delegate=self
+        table.delegate = self
         table.dataSource = self
+       
         table.separatorStyle = .none
         closeButton.layer.cornerRadius = 20
         saveButton.layer.cornerRadius = 20
@@ -41,6 +49,7 @@ class MixViewController: UIViewController ,AVAudioPlayerDelegate  {
             bannerView.delegate = self
         }
     }
+   
     
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         get {
@@ -99,37 +108,43 @@ class MixViewController: UIViewController ,AVAudioPlayerDelegate  {
         GSAudio.sharedInstance.playSound(soundFileName:  playlist![sender.tag].musicName,volume:  playlist![sender.tag].musicVolume)
         
     }
+   
+    
+    @IBAction func deletetap(_ sender: UIButton) {
+        print(sender.tag)
+        delegate?.deleteAudio(selectedNumber: sender.tag)
+        GSAudio.sharedInstance.stopSound(soundFileName: playlist![sender.tag].musicName)
+        playlist?.remove(at: sender.tag)
+        table.reloadData()
+       
+       
+    }
+    
 }
 
 extension MixViewController: UITableViewDataSource, UITableViewDelegate {
-    
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
-    }
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        print(playlist?.count)
         return playlist?.count ?? 0    // 2 rows in the cell, for demo purposes
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath as IndexPath) as! MixesTableViewCell
-        cell.selectionStyle = .none
-        
+        cell.selectionStyle = .default
+        cell.deleteBtn.tag = indexPath.row
+
         cell.labelTxt.text = playlist?[indexPath.row].musicName
         cell.slider.tag = indexPath.row
         cell.slider.setValue(playlist?[indexPath.row].musicVolume ?? 1, animated: true)
-        //        cell.slider.addTarget(tableView, action: Selector(("sliderChange:")), for: .allTouchEvents)
         
-        return UITableViewCell()
+        
+        return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 70
     }
-    @objc func sliderChange(sender: UISlider) {
-        print("changed")
-       
-    }
+
 }
 
 extension MixViewController: GADBannerViewDelegate, GADFullScreenContentDelegate{
